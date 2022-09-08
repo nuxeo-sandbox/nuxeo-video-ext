@@ -1,0 +1,10 @@
+Bundle-ActivationPolicy: lazy
+Bundle-ClassPath: .
+Manifest-Version: 1.0
+Bundle-Vendor: org.nuxeo.labs.video.ext
+Bundle-Version: 1.0.0
+Bundle-Name: nuxeo-video-ext-core
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: nuxeo-video-ext-core;singleton=true
+Nuxeo-Component: OSGI-INF/listener-contrib.xml,
+ OSGI-INF/service-contrib.xml

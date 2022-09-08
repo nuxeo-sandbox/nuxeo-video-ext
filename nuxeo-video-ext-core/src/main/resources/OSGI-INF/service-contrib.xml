@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<component name="org.nuxeo.labs.video.ext.service.ExtendedVideoService">
+
+  <implementation class="org.nuxeo.labs.video.ext.service.ExtendedVideoServiceImpl" />
+
+  <service>
+    <provide interface="org.nuxeo.labs.video.ext.service.ExtendedVideoService" />
+  </service>
+
+</component>
