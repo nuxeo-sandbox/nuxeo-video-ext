@@ -21,7 +21,7 @@ public class ExtendedVideoChangedListener extends VideoChangedListener {
         VideoInfoService videoInfoService = Framework.getService(VideoInfoService.class);
         videoInfoService.updateVideoInfo(doc, null);
         VideoStoryBoardService videoStoryBoardService = Framework.getService(VideoStoryBoardService.class);
-        videoStoryBoardService.updateStoryboard(doc, null);
+        videoStoryBoardService.updateStoryboard(doc, null, new long[]{});
         videoStoryBoardService.updatePreviews(doc, null);
         doc.setPropertyValue(TRANSCODED_VIDEOS_PROPERTY, null);
     }

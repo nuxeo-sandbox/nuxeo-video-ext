@@ -26,7 +26,7 @@ import java.io.IOException;
 
 public interface VideoStoryBoardService {
 
-    public void updateStoryboard(DocumentModel docModel, Blob video);
+    public void updateStoryboard(DocumentModel docModel, Blob video, long[] timecodes);
 
     public void updatePreviews(DocumentModel docModel, Blob video) throws IOException;
 

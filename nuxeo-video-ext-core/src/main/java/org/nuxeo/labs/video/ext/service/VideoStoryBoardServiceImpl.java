@@ -34,7 +34,7 @@ public class VideoStoryBoardServiceImpl implements VideoStoryBoardService {
 
     private static final Logger log = LogManager.getLogger(VideoStoryBoardServiceImpl.class);
 
-    public void updateStoryboard(DocumentModel docModel, Blob video) {
+    public void updateStoryboard(DocumentModel docModel, Blob video, long[] timecodes) {
         VideoHelper.updateStoryboard(docModel,video);
     }
 

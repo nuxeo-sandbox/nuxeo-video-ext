@@ -61,7 +61,7 @@ public class ExtendedVideoStoryboardWork extends VideoStoryboardWork {
         }
         log.debug(String.format("Updating storyboard of Video document %s.", doc));
         VideoStoryBoardService videoStoryBoardService = Framework.getService(VideoStoryBoardService.class);
-        videoStoryBoardService.updateStoryboard(doc,blob);
+        videoStoryBoardService.updateStoryboard(doc,blob, new long[]{});
         log.debug(String.format("End updating storyboard of Video document %s.", doc));
         return true;
     }
