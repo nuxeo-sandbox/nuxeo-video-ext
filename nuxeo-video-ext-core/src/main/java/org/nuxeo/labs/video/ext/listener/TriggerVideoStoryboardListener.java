@@ -27,7 +27,7 @@ import org.nuxeo.ecm.core.event.Event;
 import org.nuxeo.ecm.core.event.EventContext;
 import org.nuxeo.ecm.core.event.EventListener;
 import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
-import org.nuxeo.labs.video.ext.service.ExtendedVideoService;
+import org.nuxeo.labs.video.ext.service.VideoStoryBoardService;
 import org.nuxeo.runtime.api.Framework;
 
 public class TriggerVideoStoryboardListener implements EventListener {
@@ -44,8 +44,8 @@ public class TriggerVideoStoryboardListener implements EventListener {
 
         if (doc.hasFacet(HAS_VIDEO_PREVIEW_FACET) && doc.hasFacet(HAS_STORYBOARD_FACET)) {
             // schedule storyboard work
-            ExtendedVideoService extendedVideoService = Framework.getService(ExtendedVideoService.class);
-            extendedVideoService.scheduleVideoStoryboardWork(doc);
+            VideoStoryBoardService videoStoryBoardService = Framework.getService(VideoStoryBoardService.class);
+            videoStoryBoardService.scheduleVideoStoryboardWork(doc);
         }
     }
 }

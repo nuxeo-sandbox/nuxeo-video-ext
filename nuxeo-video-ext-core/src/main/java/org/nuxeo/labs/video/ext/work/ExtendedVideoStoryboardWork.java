@@ -33,9 +33,8 @@ import org.nuxeo.ecm.core.event.Event;
 import org.nuxeo.ecm.core.event.EventService;
 import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
 import org.nuxeo.ecm.platform.video.VideoConstants;
-import org.nuxeo.ecm.platform.video.VideoHelper;
 import org.nuxeo.ecm.platform.video.service.VideoStoryboardWork;
-import org.nuxeo.labs.video.ext.service.ExtendedVideoService;
+import org.nuxeo.labs.video.ext.service.VideoStoryBoardService;
 import org.nuxeo.runtime.api.Framework;
 
 public class ExtendedVideoStoryboardWork extends VideoStoryboardWork {
@@ -61,8 +60,8 @@ public class ExtendedVideoStoryboardWork extends VideoStoryboardWork {
             return false;
         }
         log.debug(String.format("Updating storyboard of Video document %s.", doc));
-        ExtendedVideoService extendedVideoService = Framework.getService(ExtendedVideoService.class);
-        extendedVideoService.updateStoryboard(doc,blob);
+        VideoStoryBoardService videoStoryBoardService = Framework.getService(VideoStoryBoardService.class);
+        videoStoryBoardService.updateStoryboard(doc,blob);
         log.debug(String.format("End updating storyboard of Video document %s.", doc));
         return true;
     }
@@ -74,9 +73,9 @@ public class ExtendedVideoStoryboardWork extends VideoStoryboardWork {
             return false;
         }
         log.debug(String.format("Updating previews of Video document %s.", doc));
-        ExtendedVideoService extendedVideoService = Framework.getService(ExtendedVideoService.class);
+        VideoStoryBoardService videoStoryBoardService = Framework.getService(VideoStoryBoardService.class);
         try {
-            extendedVideoService.updatePreviews(doc, blob);
+            videoStoryBoardService.updatePreviews(doc, blob);
             log.debug(String.format("End updating previews of Video document %s.", doc));
             return true;
         } catch (IOException e) {

@@ -34,7 +34,7 @@ import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
 import org.nuxeo.ecm.platform.video.VideoDocument;
 import org.nuxeo.ecm.platform.video.VideoHelper;
 import org.nuxeo.ecm.platform.video.service.VideoInfoWork;
-import org.nuxeo.labs.video.ext.service.ExtendedVideoService;
+import org.nuxeo.labs.video.ext.service.VideoInfoService;
 import org.nuxeo.runtime.api.Framework;
 
 public class ExtendedVideoInfoWork extends VideoInfoWork {
@@ -78,8 +78,8 @@ public class ExtendedVideoInfoWork extends VideoInfoWork {
         BlobHolder blobHolder = doc.getAdapter(BlobHolder.class);
         Blob video = blobHolder.getBlob();
         log.debug(String.format("Updating video info of document %s.", doc));
-        ExtendedVideoService extendedVideoService = Framework.getService(ExtendedVideoService.class);
-        extendedVideoService.updateVideoInfo(doc,video);
+        VideoInfoService videoInfoService = Framework.getService(VideoInfoService.class);
+        videoInfoService.updateVideoInfo(doc,video);
         log.debug(String.format("End updating video info of document %s.", doc));
 
         // save document

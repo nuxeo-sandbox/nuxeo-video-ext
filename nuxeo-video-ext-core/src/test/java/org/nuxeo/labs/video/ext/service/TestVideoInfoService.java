@@ -14,13 +14,13 @@ import javax.inject.Inject;
 @RunWith(FeaturesRunner.class)
 @Features({ PlatformFeature.class })
 @Deploy("nuxeo-video-ext-core")
-public class TestExtendedVideoService {
+public class TestVideoInfoService {
 
     @Inject
-    protected ExtendedVideoService extendedvideoservice;
+    protected VideoInfoService videoInfoService;
 
     @Test
     public void testService() {
-        assertNotNull(extendedvideoservice);
+        assertNotNull(videoInfoService);
     }
 }
