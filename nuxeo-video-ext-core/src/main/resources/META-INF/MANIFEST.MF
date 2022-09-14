@@ -9,3 +9,8 @@ Bundle-SymbolicName: nuxeo-video-ext-core;singleton=true
 Nuxeo-Component: OSGI-INF/listener-contrib.xml,
  OSGI-INF/videoinfo-service-contrib.xml,
  OSGI-INF/videostoryboard-service-contrib.xml,
+ OSGI-INF/adapter-contrib.xml,
+ OSGI-INF/converter-contrib.xml,
+ OSGI-INF/commandline-contrib.xml,
+ OSGI-INF/operation-contrib.xml
+

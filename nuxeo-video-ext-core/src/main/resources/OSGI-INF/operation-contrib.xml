@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<component name="org.nuxeo.labs.video.ext.automation">
+
+    <extension point="operations" target="org.nuxeo.ecm.core.operation.OperationServiceComponent">
+        <operation class="org.nuxeo.labs.video.ext.automation.VideoStoryboardOp"/>
+    </extension>
+
+</component>

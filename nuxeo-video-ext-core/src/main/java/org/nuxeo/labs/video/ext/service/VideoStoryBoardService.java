@@ -26,10 +26,16 @@ import java.io.IOException;
 
 public interface VideoStoryBoardService {
 
-    public void updateStoryboard(DocumentModel docModel, Blob video, long[] timecodes);
+    void updateStoryboard(DocumentModel docModel, Blob video);
 
-    public void updatePreviews(DocumentModel docModel, Blob video) throws IOException;
+    void updateStoryboard(DocumentModel docModel, Blob video, long[] timecodes);
 
-    public void scheduleVideoStoryboardWork(DocumentModel doc);
+    void clearStoryboard(DocumentModel docModel);
+
+    void updatePreviews(DocumentModel docModel, Blob video) throws IOException;
+
+    void clearPreviews(DocumentModel docModel) throws IOException;
+
+    void scheduleVideoStoryboardWork(DocumentModel doc);
 
 }

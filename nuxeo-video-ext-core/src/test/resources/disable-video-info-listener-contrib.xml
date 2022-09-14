@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<component name="org.nuxeo.labs.video.ext.listener.info.test">
+
+    <require>org.nuxeo.labs.video.ext.listener</require>
+
+    <extension target="org.nuxeo.ecm.core.event.EventServiceComponent" point="listener">
+        <listener name="triggerVideoConversionlistener"
+                  class="org.nuxeo.labs.video.ext.listener.TriggerVideoConversionListener" enabled="false">
+            <event>videoInfoDone</event>
+        </listener>
+
+        <listener name="triggerVideoStoryboardlistener"
+                  class="org.nuxeo.labs.video.ext.listener.TriggerVideoStoryboardListener" enabled="false">
+            <event>videoInfoDone</event>
+        </listener>
+    </extension>
+
+</component>

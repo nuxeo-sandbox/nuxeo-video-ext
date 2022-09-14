@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<component name="org.nuxeo.labs.video.ext.converters">
+    <extension target="org.nuxeo.ecm.core.convert.service.ConversionServiceImpl"
+               point="converter">
+        <converter name="video-screenshot" class="org.nuxeo.ecm.platform.convert.plugins.CommandLineConverter">
+            <sourceMimeType>video/*</sourceMimeType>
+            <sourceMimeType>application/gxf</sourceMimeType>
+            <sourceMimeType>application/mxf</sourceMimeType>
+            <destinationMimeType>image/jpeg</destinationMimeType>
+            <parameters>
+                <parameter name="CommandLineName">ffmpeg-screenshot-cli</parameter>
+            </parameters>
+        </converter>
+    </extension>
+</component>
+

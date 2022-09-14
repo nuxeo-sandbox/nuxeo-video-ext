@@ -68,6 +68,7 @@ public class ExtendedVideoInfoWork extends VideoInfoWork {
         Framework.getService(EventService.class).fireEvent(event);
     }
 
+    @Override
     protected void updateVideoInfo(DocumentModel doc) {
         VideoDocument videoDocument = doc.getAdapter(VideoDocument.class);
         if (videoDocument.getVideo().getWidth() != 0 && videoDocument.getVideo().getHeight() != 0) {

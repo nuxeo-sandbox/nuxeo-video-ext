@@ -19,14 +19,25 @@
 
 package org.nuxeo.labs.video.ext.service;
 
+import static org.nuxeo.ecm.platform.video.convert.Constants.POSITION_PARAMETER;
+
 import java.io.IOException;
+import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.nuxeo.ecm.core.api.Blob;
 import org.nuxeo.ecm.core.api.DocumentModel;
+import org.nuxeo.ecm.core.api.blobholder.BlobHolder;
+import org.nuxeo.ecm.core.api.blobholder.SimpleBlobHolder;
+import org.nuxeo.ecm.core.convert.api.ConversionException;
+import org.nuxeo.ecm.core.convert.api.ConversionService;
 import org.nuxeo.ecm.core.work.api.WorkManager;
 import org.nuxeo.ecm.platform.video.VideoHelper;
+import org.nuxeo.labs.video.ext.adapter.StoryboardAdapter;
+import org.nuxeo.labs.video.ext.api.Frame;
 import org.nuxeo.labs.video.ext.work.ExtendedVideoStoryboardWork;
 import org.nuxeo.runtime.api.Framework;
 
@@ -34,13 +45,34 @@ public class VideoStoryBoardServiceImpl implements VideoStoryBoardService {
 
     private static final Logger log = LogManager.getLogger(VideoStoryBoardServiceImpl.class);
 
+    public static final String SCREENSHOT_CONVERTER_NAME = "video-screenshot";
+
+    @Override
+    public void updateStoryboard(DocumentModel docModel, Blob video) {
+        this.updateStoryboard(docModel, video, new long[] {});
+    }
+
     public void updateStoryboard(DocumentModel docModel, Blob video, long[] timecodes) {
-        VideoHelper.updateStoryboard(docModel,video);
+        if (timecodes.length < 1) {
+            VideoHelper.updateStoryboard(docModel, video);
+        } else {
+            computeStoryBoard(docModel, video, timecodes);
+        }
+    }
+
+    @Override
+    public void clearStoryboard(DocumentModel docModel) {
+        VideoHelper.updateStoryboard(docModel, null);
     }
 
     @Override
     public void updatePreviews(DocumentModel docModel, Blob video) throws IOException {
-        VideoHelper.updatePreviews(docModel,video);
+        VideoHelper.updatePreviews(docModel, video);
+    }
+
+    @Override
+    public void clearPreviews(DocumentModel docModel) throws IOException {
+        VideoHelper.updatePreviews(docModel, null);
     }
 
     public void scheduleVideoStoryboardWork(DocumentModel doc) {
@@ -48,6 +80,26 @@ public class VideoStoryBoardServiceImpl implements VideoStoryBoardService {
         ExtendedVideoStoryboardWork work = new ExtendedVideoStoryboardWork(doc.getRepositoryName(), doc.getId());
         log.debug("Scheduling work: video storyboard of document {}.", doc);
         workManager.schedule(work, true);
+    }
+
+    public void computeStoryBoard(DocumentModel docModel, Blob video, long[] timecodes) {
+        StoryboardAdapter storyboard = docModel.getAdapter(StoryboardAdapter.class);
+        for (long timecode : timecodes) {
+            try {
+                Map<String, Serializable> parameters = new HashMap<>();
+                parameters.put(POSITION_PARAMETER, String.format("%.3f", timecode/1000.0f));
+                BlobHolder result = Framework.getService(ConversionService.class)
+                                             .convert(SCREENSHOT_CONVERTER_NAME, new SimpleBlobHolder(video),
+                                                     parameters);
+                Frame frame = new Frame(result.getBlob(), timecode * 1.0d, null);
+                storyboard.addFrame(frame);
+            } catch (ConversionException e) {
+                // this can happen when if the codec is not supported or not
+                // readable by ffmpeg and is recoverable by using a dummy preview
+                log.error(String.format("could not extract story board for document '%s' with video file '%s': %s",
+                        docModel.getTitle(), video, e.getMessage()));
+            }
+        }
     }
 
 }

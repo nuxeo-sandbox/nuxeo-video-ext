@@ -29,6 +29,7 @@ import org.apache.logging.log4j.Logger;
 import org.nuxeo.ecm.core.api.Blob;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.IdRef;
+import org.nuxeo.ecm.core.api.NuxeoException;
 import org.nuxeo.ecm.core.event.Event;
 import org.nuxeo.ecm.core.event.EventService;
 import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
@@ -61,7 +62,7 @@ public class ExtendedVideoStoryboardWork extends VideoStoryboardWork {
         }
         log.debug(String.format("Updating storyboard of Video document %s.", doc));
         VideoStoryBoardService videoStoryBoardService = Framework.getService(VideoStoryBoardService.class);
-        videoStoryBoardService.updateStoryboard(doc,blob, new long[]{});
+        videoStoryBoardService.updateStoryboard(doc,blob);
         log.debug(String.format("End updating storyboard of Video document %s.", doc));
         return true;
     }
@@ -80,8 +81,8 @@ public class ExtendedVideoStoryboardWork extends VideoStoryboardWork {
             return true;
         } catch (IOException e) {
             // this should only happen if the hard drive is full
-            log.debug(String.format("Failed to extract previews of Video document %s.", doc), e);
-            return false;
+            log.error(String.format("Failed to extract previews of Video document %s.", doc));
+            throw new NuxeoException(e);
         }
     }
 
