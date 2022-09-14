@@ -87,11 +87,12 @@ public class VideoStoryBoardServiceImpl implements VideoStoryBoardService {
         for (long timecode : timecodes) {
             try {
                 Map<String, Serializable> parameters = new HashMap<>();
-                parameters.put(POSITION_PARAMETER, String.format("%.3f", timecode/1000.0f));
+                double timecodeInSecond = timecode/1000.0f;
+                parameters.put(POSITION_PARAMETER, String.format("%.3f", timecodeInSecond));
                 BlobHolder result = Framework.getService(ConversionService.class)
                                              .convert(SCREENSHOT_CONVERTER_NAME, new SimpleBlobHolder(video),
                                                      parameters);
-                Frame frame = new Frame(result.getBlob(), timecode * 1.0d, null);
+                Frame frame = new Frame(result.getBlob(), timecodeInSecond, null);
                 storyboard.addFrame(frame);
             } catch (ConversionException e) {
                 // this can happen when if the codec is not supported or not
