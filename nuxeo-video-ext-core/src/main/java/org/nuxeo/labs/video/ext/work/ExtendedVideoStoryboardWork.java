@@ -19,7 +19,6 @@
 
 package org.nuxeo.labs.video.ext.work;
 
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
@@ -29,7 +28,6 @@ import org.apache.logging.log4j.Logger;
 import org.nuxeo.ecm.core.api.Blob;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.IdRef;
-import org.nuxeo.ecm.core.api.NuxeoException;
 import org.nuxeo.ecm.core.event.Event;
 import org.nuxeo.ecm.core.event.EventService;
 import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
@@ -75,15 +73,9 @@ public class ExtendedVideoStoryboardWork extends VideoStoryboardWork {
         }
         log.debug(String.format("Updating previews of Video document %s.", doc));
         VideoStoryBoardService videoStoryBoardService = Framework.getService(VideoStoryBoardService.class);
-        try {
-            videoStoryBoardService.updatePreviews(doc);
-            log.debug(String.format("End updating previews of Video document %s.", doc));
-            return true;
-        } catch (IOException e) {
-            // this should only happen if the hard drive is full
-            log.error(String.format("Failed to extract previews of Video document %s.", doc));
-            throw new NuxeoException(e);
-        }
+        videoStoryBoardService.updatePreviews(doc);
+        log.debug(String.format("End updating previews of Video document %s.", doc));
+        return true;
     }
 
     protected void fireVideoStoryboardDoneEvent() {

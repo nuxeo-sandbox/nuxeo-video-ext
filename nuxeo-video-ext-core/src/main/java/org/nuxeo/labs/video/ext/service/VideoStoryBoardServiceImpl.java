@@ -30,6 +30,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.nuxeo.ecm.core.api.Blob;
 import org.nuxeo.ecm.core.api.DocumentModel;
+import org.nuxeo.ecm.core.api.NuxeoException;
 import org.nuxeo.ecm.core.api.blobholder.BlobHolder;
 import org.nuxeo.ecm.core.api.blobholder.SimpleBlobHolder;
 import org.nuxeo.ecm.core.convert.api.ConversionException;
@@ -68,14 +69,22 @@ public class VideoStoryBoardServiceImpl implements VideoStoryBoardService {
     }
 
     @Override
-    public void updatePreviews(DocumentModel docModel) throws IOException {
+    public void updatePreviews(DocumentModel docModel) {
         VideoDocument videoDocument = docModel.getAdapter(VideoDocument.class);
-        VideoHelper.updatePreviews(docModel, videoDocument.getVideo().getBlob());
+        try {
+            VideoHelper.updatePreviews(docModel, videoDocument.getVideo().getBlob());
+        } catch (IOException e) {
+            throw new NuxeoException(e);
+        }
     }
 
     @Override
-    public void clearPreviews(DocumentModel docModel) throws IOException {
-        VideoHelper.updatePreviews(docModel, null);
+    public void clearPreviews(DocumentModel docModel) {
+        try {
+            VideoHelper.updatePreviews(docModel, null);
+        } catch (IOException e) {
+            throw new NuxeoException(e);
+        }
     }
 
     public void scheduleVideoStoryboardWork(DocumentModel doc) {

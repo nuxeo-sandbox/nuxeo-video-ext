@@ -19,8 +19,6 @@
 
 package org.nuxeo.labs.video.ext.service;
 
-import java.io.IOException;
-
 import org.nuxeo.ecm.core.api.DocumentModel;
 
 public interface VideoStoryBoardService {
@@ -31,9 +29,9 @@ public interface VideoStoryBoardService {
 
     void clearStoryboard(DocumentModel docModel);
 
-    void updatePreviews(DocumentModel docModel) throws IOException;
+    void updatePreviews(DocumentModel docModel);
 
-    void clearPreviews(DocumentModel docModel) throws IOException;
+    void clearPreviews(DocumentModel docModel);
 
     void scheduleVideoStoryboardWork(DocumentModel doc);
 
