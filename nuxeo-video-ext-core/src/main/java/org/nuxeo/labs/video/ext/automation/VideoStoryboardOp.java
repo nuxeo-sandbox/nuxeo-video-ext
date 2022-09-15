@@ -37,7 +37,7 @@ import org.nuxeo.labs.video.ext.service.VideoStoryBoardService;
 /**
  *
  */
-@Operation(id = VideoStoryboardOp.ID, category = Constants.CAT_BLOB, label = "Generate a storyboard for the input video document", description = "Generate a storyboard for the input video document")
+@Operation(id = VideoStoryboardOp.ID, category = Constants.CAT_BLOB, label = "Generate a storyboard", description = "Generate a storyboard for the input video document")
 public class VideoStoryboardOp {
 
     public static final String ID = "Video.Storyboard";
