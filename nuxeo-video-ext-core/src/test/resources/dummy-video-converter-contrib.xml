@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<component name="org.nuxeo.labs.video.ext.dummy.converter">
+
+    <require>org.nuxeo.ecm.platform.video.convert.converters</require>
+
+    <extension target="org.nuxeo.ecm.core.convert.service.ConversionServiceImpl" point="converter">
+
+        <converter class="org.nuxeo.labs.video.ext.utils.DummyConverter" name="convertToWebM">
+            <sourceMimeType>video/*</sourceMimeType>
+        </converter>
+
+        <converter class="org.nuxeo.labs.video.ext.utils.DummyConverter" name="convertToMP4">
+            <sourceMimeType>video/*</sourceMimeType>
+        </converter>
+
+    </extension>
+
+</component>
