@@ -47,9 +47,9 @@ public class TestVideoInfoService {
     public void testComputeVideoInfo() {
         DocumentModel doc = videoExtFeature.getVideoDocument(session);
 
-        videoInfoService.updateVideoInfo(doc, videoExtFeature.getVideoBlob());
+        videoInfoService.updateVideoInfo(doc);
 
-        VideoDocument videoDocument = doc.getAdapter(VideoDocument.class);
+        VideoDocument videoDocument = doc.getAdapter(VideoDocument.class,true);
         VideoInfo videoInfo = videoDocument.getVideo().getVideoInfo();
         Assert.assertNotNull(videoInfo);
         Assert.assertEquals(121.65,videoInfo.getDuration(),0.1d);

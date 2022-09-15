@@ -64,9 +64,9 @@ public class VideoStoryboardOp {
 
         if (!timecodeListInMillis.isEmpty()) {
             long[] timecodes = timecodeListInMillis.stream().mapToLong(Long::parseLong).toArray();
-            storyboardService.updateStoryboard(doc, videoDoc.getVideo().getBlob(), timecodes);
+            storyboardService.updateStoryboard(doc, timecodes);
         } else {
-            storyboardService.updateStoryboard(doc, videoDoc.getVideo().getBlob());
+            storyboardService.updateStoryboard(doc);
         }
 
         if (save) {

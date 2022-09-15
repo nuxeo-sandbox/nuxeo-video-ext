@@ -21,9 +21,9 @@ package org.nuxeo.labs.video.ext.service;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.nuxeo.ecm.core.api.Blob;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.work.api.WorkManager;
+import org.nuxeo.ecm.platform.video.VideoDocument;
 import org.nuxeo.ecm.platform.video.VideoHelper;
 import org.nuxeo.labs.video.ext.work.ExtendedVideoInfoWork;
 import org.nuxeo.runtime.api.Framework;
@@ -34,8 +34,14 @@ public class VideoInfoServiceImpl extends DefaultComponent implements VideoInfoS
     private static final Logger log = LogManager.getLogger(VideoInfoServiceImpl.class);
 
     @Override
-    public void updateVideoInfo(DocumentModel docModel, Blob video) {
-        VideoHelper.updateVideoInfo(docModel,video);
+    public void clearVideoInfo(DocumentModel docModel) {
+        VideoHelper.updateVideoInfo(docModel,null);
+    }
+
+    @Override
+    public void updateVideoInfo(DocumentModel docModel) {
+        VideoDocument videoDocument = docModel.getAdapter(VideoDocument.class);
+        VideoHelper.updateVideoInfo(docModel,videoDocument.getVideo().getBlob());
     }
 
     @Override

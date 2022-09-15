@@ -62,7 +62,7 @@ public class ExtendedVideoStoryboardWork extends VideoStoryboardWork {
         }
         log.debug(String.format("Updating storyboard of Video document %s.", doc));
         VideoStoryBoardService videoStoryBoardService = Framework.getService(VideoStoryBoardService.class);
-        videoStoryBoardService.updateStoryboard(doc,blob);
+        videoStoryBoardService.updateStoryboard(doc);
         log.debug(String.format("End updating storyboard of Video document %s.", doc));
         return true;
     }
@@ -76,7 +76,7 @@ public class ExtendedVideoStoryboardWork extends VideoStoryboardWork {
         log.debug(String.format("Updating previews of Video document %s.", doc));
         VideoStoryBoardService videoStoryBoardService = Framework.getService(VideoStoryBoardService.class);
         try {
-            videoStoryBoardService.updatePreviews(doc, blob);
+            videoStoryBoardService.updatePreviews(doc);
             log.debug(String.format("End updating previews of Video document %s.", doc));
             return true;
         } catch (IOException e) {

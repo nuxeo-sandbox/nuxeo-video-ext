@@ -19,12 +19,13 @@
 
 package org.nuxeo.labs.video.ext.service;
 
-import org.nuxeo.ecm.core.api.Blob;
 import org.nuxeo.ecm.core.api.DocumentModel;
 
 public interface VideoInfoService {
 
-    void updateVideoInfo(DocumentModel docModel, Blob video);
+    void clearVideoInfo(DocumentModel docModel);
+
+    void updateVideoInfo(DocumentModel docModel);
 
     void scheduleVideoInfoWork(DocumentModel doc);
 

@@ -19,20 +19,19 @@
 
 package org.nuxeo.labs.video.ext.service;
 
-import org.nuxeo.ecm.core.api.Blob;
-import org.nuxeo.ecm.core.api.DocumentModel;
-
 import java.io.IOException;
+
+import org.nuxeo.ecm.core.api.DocumentModel;
 
 public interface VideoStoryBoardService {
 
-    void updateStoryboard(DocumentModel docModel, Blob video);
+    void updateStoryboard(DocumentModel docModel);
 
-    void updateStoryboard(DocumentModel docModel, Blob video, long[] timecodes);
+    void updateStoryboard(DocumentModel docModel, long[] timecodes);
 
     void clearStoryboard(DocumentModel docModel);
 
-    void updatePreviews(DocumentModel docModel, Blob video) throws IOException;
+    void updatePreviews(DocumentModel docModel) throws IOException;
 
     void clearPreviews(DocumentModel docModel) throws IOException;
 

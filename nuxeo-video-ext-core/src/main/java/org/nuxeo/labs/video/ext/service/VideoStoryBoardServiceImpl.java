@@ -35,6 +35,7 @@ import org.nuxeo.ecm.core.api.blobholder.SimpleBlobHolder;
 import org.nuxeo.ecm.core.convert.api.ConversionException;
 import org.nuxeo.ecm.core.convert.api.ConversionService;
 import org.nuxeo.ecm.core.work.api.WorkManager;
+import org.nuxeo.ecm.platform.video.VideoDocument;
 import org.nuxeo.ecm.platform.video.VideoHelper;
 import org.nuxeo.labs.video.ext.adapter.StoryboardAdapter;
 import org.nuxeo.labs.video.ext.api.Frame;
@@ -48,15 +49,16 @@ public class VideoStoryBoardServiceImpl implements VideoStoryBoardService {
     public static final String SCREENSHOT_CONVERTER_NAME = "video-screenshot";
 
     @Override
-    public void updateStoryboard(DocumentModel docModel, Blob video) {
-        this.updateStoryboard(docModel, video, new long[] {});
+    public void updateStoryboard(DocumentModel docModel) {
+        this.updateStoryboard(docModel, new long[] {});
     }
 
-    public void updateStoryboard(DocumentModel docModel, Blob video, long[] timecodes) {
+    public void updateStoryboard(DocumentModel docModel, long[] timecodes) {
+        VideoDocument videoDocument = docModel.getAdapter(VideoDocument.class);
         if (timecodes.length < 1) {
-            VideoHelper.updateStoryboard(docModel, video);
+            VideoHelper.updateStoryboard(docModel, videoDocument.getVideo().getBlob());
         } else {
-            computeStoryBoard(docModel, video, timecodes);
+            computeStoryBoard(docModel, timecodes);
         }
     }
 
@@ -66,8 +68,9 @@ public class VideoStoryBoardServiceImpl implements VideoStoryBoardService {
     }
 
     @Override
-    public void updatePreviews(DocumentModel docModel, Blob video) throws IOException {
-        VideoHelper.updatePreviews(docModel, video);
+    public void updatePreviews(DocumentModel docModel) throws IOException {
+        VideoDocument videoDocument = docModel.getAdapter(VideoDocument.class);
+        VideoHelper.updatePreviews(docModel, videoDocument.getVideo().getBlob());
     }
 
     @Override
@@ -82,8 +85,10 @@ public class VideoStoryBoardServiceImpl implements VideoStoryBoardService {
         workManager.schedule(work, true);
     }
 
-    public void computeStoryBoard(DocumentModel docModel, Blob video, long[] timecodes) {
+    public void computeStoryBoard(DocumentModel docModel, long[] timecodes) {
         StoryboardAdapter storyboard = docModel.getAdapter(StoryboardAdapter.class);
+        VideoDocument videoDocument = docModel.getAdapter(VideoDocument.class);
+        Blob video = videoDocument.getVideo().getBlob();
         for (long timecode : timecodes) {
             try {
                 Map<String, Serializable> parameters = new HashMap<>();

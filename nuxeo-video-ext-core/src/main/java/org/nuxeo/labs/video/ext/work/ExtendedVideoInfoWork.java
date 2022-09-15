@@ -75,12 +75,9 @@ public class ExtendedVideoInfoWork extends VideoInfoWork {
             // assume the video info is already computed
             return;
         }
-
-        BlobHolder blobHolder = doc.getAdapter(BlobHolder.class);
-        Blob video = blobHolder.getBlob();
         log.debug(String.format("Updating video info of document %s.", doc));
         VideoInfoService videoInfoService = Framework.getService(VideoInfoService.class);
-        videoInfoService.updateVideoInfo(doc,video);
+        videoInfoService.updateVideoInfo(doc);
         log.debug(String.format("End updating video info of document %s.", doc));
 
         // save document

@@ -45,8 +45,7 @@ public class TestVideoStoryBoardService {
     @Test
     public void testComputeDefaultStoryboard() {
         DocumentModel doc = videoExtFeature.getVideoDocument(session);
-        Blob video = videoExtFeature.getVideoBlob();
-        videoStoryBoardService.updateStoryboard(doc, video);
+        videoStoryBoardService.updateStoryboard(doc);
         Storyboard storyboard = doc.getAdapter(StoryboardAdapter.class);
         Assert.assertEquals(DEFAULT_NUMBER_OF_THUMBNAILS, storyboard.size());
     }
@@ -54,8 +53,7 @@ public class TestVideoStoryBoardService {
     @Test
     public void testComputeCustomStoryboard() {
         DocumentModel doc = videoExtFeature.getVideoDocument(session);
-        Blob video = videoExtFeature.getVideoBlob();
-        videoStoryBoardService.updateStoryboard(doc, video, new long[] { 5000, 10000, 60000 });
+        videoStoryBoardService.updateStoryboard(doc, new long[] { 5000, 10000, 60000 });
         Storyboard storyboard = doc.getAdapter(StoryboardAdapter.class);
         Assert.assertEquals(3, storyboard.size());
     }

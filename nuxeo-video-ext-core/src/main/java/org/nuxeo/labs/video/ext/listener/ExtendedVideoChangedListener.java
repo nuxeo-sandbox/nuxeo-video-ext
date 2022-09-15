@@ -39,7 +39,7 @@ public class ExtendedVideoChangedListener extends VideoChangedListener {
     protected void resetProperties(DocumentModel doc) throws IOException {
         log.debug("Resetting video info, storyboard, previews and conversions of document {}", doc);
         VideoInfoService videoInfoService = Framework.getService(VideoInfoService.class);
-        videoInfoService.updateVideoInfo(doc, null);
+        videoInfoService.clearVideoInfo(doc);
         VideoStoryBoardService videoStoryBoardService = Framework.getService(VideoStoryBoardService.class);
         videoStoryBoardService.clearStoryboard(doc);
         videoStoryBoardService.clearPreviews(doc);
