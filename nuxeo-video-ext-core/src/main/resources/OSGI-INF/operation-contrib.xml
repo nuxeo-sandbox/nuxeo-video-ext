@@ -3,6 +3,7 @@
 
     <extension point="operations" target="org.nuxeo.ecm.core.operation.OperationServiceComponent">
         <operation class="org.nuxeo.labs.video.ext.automation.VideoStoryboardOp"/>
+        <operation class="org.nuxeo.labs.video.ext.automation.VideoPreviewOp"/>
     </extension>
 
 </component>

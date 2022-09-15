@@ -31,6 +31,8 @@ public interface VideoStoryBoardService {
 
     void updatePreviews(DocumentModel docModel);
 
+    void updatePreviews(DocumentModel docModel, double timecodeInSecond);
+
     void clearPreviews(DocumentModel docModel);
 
     void scheduleVideoStoryboardWork(DocumentModel doc);

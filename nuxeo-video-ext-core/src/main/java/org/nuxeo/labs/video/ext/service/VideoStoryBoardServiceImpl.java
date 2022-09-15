@@ -23,6 +23,7 @@ import static org.nuxeo.ecm.platform.video.convert.Constants.POSITION_PARAMETER;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -73,6 +74,15 @@ public class VideoStoryBoardServiceImpl implements VideoStoryBoardService {
         VideoDocument videoDocument = docModel.getAdapter(VideoDocument.class);
         try {
             VideoHelper.updatePreviews(docModel, videoDocument.getVideo().getBlob());
+        } catch (IOException e) {
+            throw new NuxeoException(e);
+        }
+    }
+
+    public void updatePreviews(DocumentModel docModel, double timecodeInSecond) {
+        VideoDocument videoDocument = docModel.getAdapter(VideoDocument.class);
+        try {
+            VideoHelper.updatePreviews(docModel, videoDocument.getVideo().getBlob(), timecodeInSecond, new ArrayList<>());
         } catch (IOException e) {
             throw new NuxeoException(e);
         }
