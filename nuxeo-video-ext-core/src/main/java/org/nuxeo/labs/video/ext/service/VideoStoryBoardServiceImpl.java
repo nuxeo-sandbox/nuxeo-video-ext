@@ -25,6 +25,8 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
@@ -37,6 +39,7 @@ import org.nuxeo.ecm.core.api.blobholder.SimpleBlobHolder;
 import org.nuxeo.ecm.core.convert.api.ConversionException;
 import org.nuxeo.ecm.core.convert.api.ConversionService;
 import org.nuxeo.ecm.core.work.api.WorkManager;
+import org.nuxeo.ecm.platform.picture.api.adapters.AbstractPictureAdapter;
 import org.nuxeo.ecm.platform.video.VideoDocument;
 import org.nuxeo.ecm.platform.video.VideoHelper;
 import org.nuxeo.labs.video.ext.adapter.StoryboardAdapter;
@@ -82,7 +85,16 @@ public class VideoStoryBoardServiceImpl implements VideoStoryBoardService {
     public void updatePreviews(DocumentModel docModel, double timecodeInSecond) {
         VideoDocument videoDocument = docModel.getAdapter(VideoDocument.class);
         try {
-            VideoHelper.updatePreviews(docModel, videoDocument.getVideo().getBlob(), timecodeInSecond, new ArrayList<>());
+            List<Map<String, Object>> views = new ArrayList<>();
+            Map<String, Object> thumbnailView = new LinkedHashMap<>();
+            thumbnailView.put("title", "Small");
+            thumbnailView.put("maxsize", (long) AbstractPictureAdapter.SMALL_SIZE);
+            views.add(thumbnailView);
+            Map<String, Object> staticPlayerView = new HashMap<>();
+            staticPlayerView.put("title", "StaticPlayerView");
+            staticPlayerView.put("maxsize", (long) AbstractPictureAdapter.MEDIUM_SIZE);
+            views.add(staticPlayerView);
+            VideoHelper.updatePreviews(docModel, videoDocument.getVideo().getBlob(), timecodeInSecond, views);
         } catch (IOException e) {
             throw new NuxeoException(e);
         }
@@ -111,7 +123,7 @@ public class VideoStoryBoardServiceImpl implements VideoStoryBoardService {
         for (long timecode : timecodes) {
             try {
                 Map<String, Serializable> parameters = new HashMap<>();
-                double timecodeInSecond = timecode/1000.0f;
+                double timecodeInSecond = timecode / 1000.0f;
                 parameters.put(POSITION_PARAMETER, String.format("%.3f", timecodeInSecond));
                 BlobHolder result = Framework.getService(ConversionService.class)
                                              .convert(SCREENSHOT_CONVERTER_NAME, new SimpleBlobHolder(video),
