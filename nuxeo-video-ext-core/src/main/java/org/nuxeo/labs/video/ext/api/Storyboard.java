@@ -19,9 +19,7 @@
 
 package org.nuxeo.labs.video.ext.api;
 
-
 import java.util.List;
-
 
 public interface Storyboard {
 

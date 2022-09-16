@@ -3,7 +3,8 @@
 
     <require>org.nuxeo.ecm.platform.commandline.executor.service.defaultContrib</require>
 
-    <extension target="org.nuxeo.ecm.platform.commandline.executor.service.CommandLineExecutorComponent" point="command">
+    <extension target="org.nuxeo.ecm.platform.commandline.executor.service.CommandLineExecutorComponent"
+               point="command">
         <command name="ffmpeg-screenshot-cli" enabled="true">
             <commandLine>ffmpeg</commandLine>
             <!-- It's important to put the -ss option before the -i option for

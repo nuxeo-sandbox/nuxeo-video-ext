@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.nuxeo.labs.video.ext.work.ExtendedVideoInfoWork.VIDEO_INFO_DONE_EVENT;
 
+import java.io.Serializable;
+
 import javax.inject.Inject;
 
 import org.junit.Assert;
@@ -20,23 +22,18 @@ import org.nuxeo.runtime.test.runner.Features;
 import org.nuxeo.runtime.test.runner.FeaturesRunner;
 import org.nuxeo.runtime.test.runner.TransactionalFeature;
 
-import java.io.Serializable;
-
 @RunWith(FeaturesRunner.class)
 @Features(VideoExtFeature.class)
 public class TestVideoInfoService {
 
     @Inject
-    CoreSession session;
-
-    @Inject
     protected TransactionalFeature transactionalFeature;
-
-    @Inject
-    VideoExtFeature videoExtFeature;
-
     @Inject
     protected VideoInfoService videoInfoService;
+    @Inject
+    CoreSession session;
+    @Inject
+    VideoExtFeature videoExtFeature;
 
     @Test
     public void testService() {
@@ -49,10 +46,10 @@ public class TestVideoInfoService {
 
         videoInfoService.updateVideoInfo(doc);
 
-        VideoDocument videoDocument = doc.getAdapter(VideoDocument.class,true);
+        VideoDocument videoDocument = doc.getAdapter(VideoDocument.class, true);
         VideoInfo videoInfo = videoDocument.getVideo().getVideoInfo();
         Assert.assertNotNull(videoInfo);
-        Assert.assertEquals(121.65,videoInfo.getDuration(),0.1d);
+        Assert.assertEquals(121.65, videoInfo.getDuration(), 0.1d);
 
     }
 
@@ -73,7 +70,7 @@ public class TestVideoInfoService {
             VideoDocument videoDocument = doc.getAdapter(VideoDocument.class);
             VideoInfo videoInfo = videoDocument.getVideo().getVideoInfo();
             Assert.assertNotNull(videoInfo);
-            Assert.assertEquals(121.65,videoInfo.getDuration(),0.1d);
+            Assert.assertEquals(121.65, videoInfo.getDuration(), 0.1d);
         }
     }
 }

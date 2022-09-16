@@ -34,7 +34,6 @@ import org.nuxeo.ecm.platform.video.VideoConstants;
 import org.nuxeo.labs.video.ext.api.Frame;
 import org.nuxeo.labs.video.ext.api.Storyboard;
 
-
 public class StoryboardAdapter implements Storyboard {
 
     private final DocumentModel doc;
@@ -43,10 +42,10 @@ public class StoryboardAdapter implements Storyboard {
 
     public StoryboardAdapter(DocumentModel doc) {
         this.doc = doc;
-        List<Map<String,Serializable>> property =
-                (List<Map<String, Serializable>>) doc.getPropertyValue(VideoConstants.STORYBOARD_PROPERTY);
-        if (property!=null) {
-            for (Map<String,Serializable> item : property) {
+        List<Map<String, Serializable>> property = (List<Map<String, Serializable>>) doc.getPropertyValue(
+                VideoConstants.STORYBOARD_PROPERTY);
+        if (property != null) {
+            for (Map<String, Serializable> item : property) {
                 Frame frame = new Frame();
                 frame.setBlob((Blob) item.get("content"));
                 frame.setTimeInSeconds((Double) item.get("timecode"));
@@ -79,12 +78,12 @@ public class StoryboardAdapter implements Storyboard {
     }
 
     protected void updateDoc() {
-        List<Map<String,Serializable>> property = new ArrayList<>();
+        List<Map<String, Serializable>> property = new ArrayList<>();
         for (Frame frame : frames) {
-            Map<String,Serializable> item = new HashedMap();
+            Map<String, Serializable> item = new HashedMap();
             item.put("content", (Serializable) frame.getBlob());
-            item.put("timecode",frame.getTimeInSeconds());
-            item.put("comment",frame.getComment());
+            item.put("timecode", frame.getTimeInSeconds());
+            item.put("comment", frame.getComment());
             property.add(item);
         }
         doc.setPropertyValue(VideoConstants.STORYBOARD_PROPERTY, (Serializable) property);

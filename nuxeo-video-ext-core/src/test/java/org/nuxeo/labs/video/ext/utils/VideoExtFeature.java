@@ -42,13 +42,8 @@ import org.nuxeo.runtime.test.runner.Features;
 import org.nuxeo.runtime.test.runner.RunnerFeature;
 
 @Features({ AutomationFeature.class })
-@Deploy({
-        "nuxeo-video-ext-core",
-        "org.nuxeo.ecm.platform.picture.core",
-        "org.nuxeo.ecm.platform.tag",
-        "org.nuxeo.ecm.platform.video",
-        "nuxeo-video-ext-core:disable-video-changed-listener-contrib.xml"
-})
+@Deploy({ "nuxeo-video-ext-core", "org.nuxeo.ecm.platform.picture.core", "org.nuxeo.ecm.platform.tag",
+        "org.nuxeo.ecm.platform.video", "nuxeo-video-ext-core:disable-video-changed-listener-contrib.xml" })
 public class VideoExtFeature implements RunnerFeature {
 
     public Blob getVideoBlob() {
@@ -66,11 +61,11 @@ public class VideoExtFeature implements RunnerFeature {
         doc.setPropertyValue("file:content", (Serializable) getVideoBlob());
 
         Map<String, Serializable> videoInfo = new HashMap<>();
-        videoInfo.put(DURATION,120.0d);
-        videoInfo.put(WIDTH,640L);
-        videoInfo.put(HEIGHT,360L);
-        videoInfo.put(FRAME_RATE,25.0d);
-        videoInfo.put(FORMAT,"mp4");
+        videoInfo.put(DURATION, 120.0d);
+        videoInfo.put(WIDTH, 640L);
+        videoInfo.put(HEIGHT, 360L);
+        videoInfo.put(FRAME_RATE, 25.0d);
+        videoInfo.put(FORMAT, "mp4");
         videoInfo.put(STREAMS, new ArrayList<>());
 
         doc.setPropertyValue("vid:info", (Serializable) videoInfo);

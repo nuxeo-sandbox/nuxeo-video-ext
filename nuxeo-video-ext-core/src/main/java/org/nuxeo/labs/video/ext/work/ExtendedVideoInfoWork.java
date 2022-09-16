@@ -24,10 +24,8 @@ import static org.nuxeo.ecm.core.api.versioning.VersioningService.DISABLE_AUTO_C
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.nuxeo.ecm.core.api.Blob;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.IdRef;
-import org.nuxeo.ecm.core.api.blobholder.BlobHolder;
 import org.nuxeo.ecm.core.event.Event;
 import org.nuxeo.ecm.core.event.EventService;
 import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
@@ -87,6 +85,5 @@ public class ExtendedVideoInfoWork extends VideoInfoWork {
         doc.putContextData(DISABLE_AUTO_CHECKOUT, Boolean.TRUE);
         session.saveDocument(doc);
     }
-
 
 }

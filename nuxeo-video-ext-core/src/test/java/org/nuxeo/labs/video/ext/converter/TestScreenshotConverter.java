@@ -40,7 +40,7 @@ public class TestScreenshotConverter {
     public void testConverter() {
         Blob blob = videoExtFeature.getVideoBlob();
         Map<String, Serializable> parameters = new HashMap<>();
-        parameters.put(POSITION_PARAMETER,String.format("%dms",500));
+        parameters.put(POSITION_PARAMETER, String.format("%dms", 500));
         BlobHolder bh = conversionService.convert(SCREENSHOT_CONVERTER_NAME, new SimpleBlobHolder(blob), parameters);
         Assert.assertNotNull(bh);
         Blob screenshot = bh.getBlob();

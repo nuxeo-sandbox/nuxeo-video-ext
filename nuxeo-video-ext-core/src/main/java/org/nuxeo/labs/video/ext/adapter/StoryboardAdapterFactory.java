@@ -19,10 +19,10 @@
 
 package org.nuxeo.labs.video.ext.adapter;
 
+import static org.nuxeo.ecm.platform.video.VideoConstants.HAS_STORYBOARD_FACET;
+
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.adapter.DocumentAdapterFactory;
-
-import static org.nuxeo.ecm.platform.video.VideoConstants.HAS_STORYBOARD_FACET;
 
 public class StoryboardAdapterFactory implements DocumentAdapterFactory {
 

@@ -63,7 +63,7 @@ public class TestVideoPreviewOp {
         doc = (DocumentModel) automationService.run(ctx, VideoPreviewOp.ID, params);
 
         List<Map<String, Serializable>> views = (List<Map<String, Serializable>>) doc.getPropertyValue("picture:views");
-        Assert.assertEquals(2,views.size());
+        Assert.assertEquals(2, views.size());
     }
 
     @Test
@@ -78,7 +78,7 @@ public class TestVideoPreviewOp {
         doc = (DocumentModel) automationService.run(ctx, VideoStoryboardOp.ID, params);
 
         List<Map<String, Serializable>> views = (List<Map<String, Serializable>>) doc.getPropertyValue("picture:views");
-        Assert.assertEquals(2,views.size());
+        Assert.assertEquals(2, views.size());
     }
 
     @Test
@@ -93,7 +93,7 @@ public class TestVideoPreviewOp {
         doc = (DocumentModel) automationService.run(ctx, "javascript.test_video_preview_js", params);
 
         List<Map<String, Serializable>> views = (List<Map<String, Serializable>>) doc.getPropertyValue("picture:views");
-        Assert.assertEquals(2,views.size());
+        Assert.assertEquals(2, views.size());
     }
 
 }

@@ -53,7 +53,9 @@ public class ExtendedVideoChangedListener extends VideoChangedListener {
             VideoInfoService videoInfoService = Framework.getService(VideoInfoService.class);
             videoInfoService.scheduleVideoInfoWork(doc);
         } else {
-            log.debug("Document doesn't hold a video file, skipping video info, storyboard and conversions of document {}", doc);
+            log.debug(
+                    "Document doesn't hold a video file, skipping video info, storyboard and conversions of document {}",
+                    doc);
         }
     }
 

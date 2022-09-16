@@ -65,17 +65,17 @@ public class StoryboardAdapterTest {
         doc = session.createDocument(doc);
 
         Storyboard adapter = doc.getAdapter(StoryboardAdapter.class);
-        Assert.assertEquals(0,adapter.size());
-        Frame frame = new Frame(new StringBlob(""),1.0,"test");
+        Assert.assertEquals(0, adapter.size());
+        Frame frame = new Frame(new StringBlob(""), 1.0, "test");
         adapter.addFrame(frame);
 
         doc = session.saveDocument(doc);
         adapter = doc.getAdapter(StoryboardAdapter.class);
-        Assert.assertEquals(1,adapter.size());
+        Assert.assertEquals(1, adapter.size());
         Frame savedFrame = adapter.getFrames().get(0);
-        Assert.assertEquals(frame.getTimeInSeconds(),savedFrame.getTimeInSeconds(),0.001);
-        Assert.assertEquals(frame.getComment(),savedFrame.getComment());
-        Assert.assertEquals(frame.getBlob().getFilename(),savedFrame.getBlob().getFilename());
+        Assert.assertEquals(frame.getTimeInSeconds(), savedFrame.getTimeInSeconds(), 0.001);
+        Assert.assertEquals(frame.getComment(), savedFrame.getComment());
+        Assert.assertEquals(frame.getBlob().getFilename(), savedFrame.getBlob().getFilename());
     }
 
     @Test
@@ -84,15 +84,15 @@ public class StoryboardAdapterTest {
         doc = session.createDocument(doc);
 
         Storyboard adapter = doc.getAdapter(StoryboardAdapter.class);
-        Assert.assertEquals(0,adapter.size());
+        Assert.assertEquals(0, adapter.size());
         List<Frame> frames = new ArrayList<>();
-        frames.add(new Frame(new StringBlob(""),1.0,"test"));
-        frames.add(new Frame(new StringBlob(""),2.0,"test2"));
+        frames.add(new Frame(new StringBlob(""), 1.0, "test"));
+        frames.add(new Frame(new StringBlob(""), 2.0, "test2"));
         adapter.addAllFrames(frames);
 
         doc = session.saveDocument(doc);
         adapter = doc.getAdapter(StoryboardAdapter.class);
-        Assert.assertEquals(2,adapter.size());
+        Assert.assertEquals(2, adapter.size());
     }
 
 }

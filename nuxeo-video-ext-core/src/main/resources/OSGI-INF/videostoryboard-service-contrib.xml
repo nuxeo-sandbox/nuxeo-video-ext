@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <component name="org.nuxeo.labs.video.ext.service.storyboard">
 
-  <implementation class="org.nuxeo.labs.video.ext.service.VideoStoryBoardServiceImpl" />
+    <implementation class="org.nuxeo.labs.video.ext.service.VideoStoryBoardServiceImpl"/>
 
-  <service>
-    <provide interface="org.nuxeo.labs.video.ext.service.VideoStoryBoardService" />
-  </service>
+    <service>
+        <provide interface="org.nuxeo.labs.video.ext.service.VideoStoryBoardService"/>
+    </service>
 
 </component>

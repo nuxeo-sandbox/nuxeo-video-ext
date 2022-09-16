@@ -48,8 +48,6 @@ public class StoryboardImpl implements Storyboard {
 
     @Override
     public String toString() {
-        return "StoryboardImpl{" +
-                "frames=" + frames +
-                '}';
+        return "StoryboardImpl{" + "frames=" + frames + '}';
     }
 }

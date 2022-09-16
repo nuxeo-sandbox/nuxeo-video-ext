@@ -3,8 +3,9 @@
 
     <require>org.nuxeo.labs.video.ext.listener.changed.test</require>
 
-    <extension target="org.nuxeo.ecm.core.event.EventServiceComponent" point="listener" >
-        <listener name="videoChangedListener" class="org.nuxeo.labs.video.ext.listener.ExtendedVideoChangedListener" enabled="true">
+    <extension target="org.nuxeo.ecm.core.event.EventServiceComponent" point="listener">
+        <listener name="videoChangedListener" class="org.nuxeo.labs.video.ext.listener.ExtendedVideoChangedListener"
+                  enabled="true">
             <event>documentCreated</event>
             <event>beforeDocumentModification</event>
         </listener>

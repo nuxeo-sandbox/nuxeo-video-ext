@@ -63,7 +63,7 @@ public class VideoPreviewOp {
         if (timecodeInSecond == null) {
             storyboardService.updatePreviews(doc);
         } else {
-            storyboardService.updatePreviews(doc,timecodeInSecond.doubleValue());
+            storyboardService.updatePreviews(doc, timecodeInSecond.doubleValue());
         }
 
         if (save) {

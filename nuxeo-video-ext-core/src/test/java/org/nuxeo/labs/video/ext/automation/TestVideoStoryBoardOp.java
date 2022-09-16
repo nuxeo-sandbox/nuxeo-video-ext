@@ -19,8 +19,11 @@
 
 package org.nuxeo.labs.video.ext.automation;
 
+import static org.nuxeo.ecm.platform.video.VideoHelper.DEFAULT_NUMBER_OF_THUMBNAILS;
+
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -28,7 +31,6 @@ import javax.inject.Inject;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import java.util.List;
 import org.nuxeo.ecm.automation.AutomationService;
 import org.nuxeo.ecm.automation.OperationContext;
 import org.nuxeo.ecm.automation.OperationException;
@@ -40,8 +42,6 @@ import org.nuxeo.labs.video.ext.utils.VideoExtFeature;
 import org.nuxeo.runtime.test.runner.Deploy;
 import org.nuxeo.runtime.test.runner.Features;
 import org.nuxeo.runtime.test.runner.FeaturesRunner;
-
-import static org.nuxeo.ecm.platform.video.VideoHelper.DEFAULT_NUMBER_OF_THUMBNAILS;
 
 @RunWith(FeaturesRunner.class)
 @Features(VideoExtFeature.class)
@@ -76,7 +76,7 @@ public class TestVideoStoryBoardOp {
 
         OperationContext ctx = new OperationContext(session);
         Map<String, Object> params = new HashMap<>();
-        List<String> timecodes = Arrays.asList("1000","2000","3000");
+        List<String> timecodes = Arrays.asList("1000", "2000", "3000");
         params.put("timecodeListinMillis", timecodes);
         ctx.setInput(doc);
 

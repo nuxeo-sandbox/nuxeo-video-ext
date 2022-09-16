@@ -31,6 +31,7 @@ public class TestExtendedVideoChangedListener {
         EventListenerDescriptor listener = s.getEventListener("videoChangedListener");
         assertNotNull(listener);
         assertTrue(events.stream().allMatch(listener::acceptEvent));
-        Assert.assertEquals(listener.asEventListener().getClass().getName(),ExtendedVideoChangedListener.class.getName());
+        Assert.assertEquals(listener.asEventListener().getClass().getName(),
+                ExtendedVideoChangedListener.class.getName());
     }
 }

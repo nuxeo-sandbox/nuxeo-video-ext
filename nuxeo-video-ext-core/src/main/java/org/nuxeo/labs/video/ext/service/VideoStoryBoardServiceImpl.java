@@ -49,9 +49,8 @@ import org.nuxeo.runtime.api.Framework;
 
 public class VideoStoryBoardServiceImpl implements VideoStoryBoardService {
 
-    private static final Logger log = LogManager.getLogger(VideoStoryBoardServiceImpl.class);
-
     public static final String SCREENSHOT_CONVERTER_NAME = "video-screenshot";
+    private static final Logger log = LogManager.getLogger(VideoStoryBoardServiceImpl.class);
 
     @Override
     public void updateStoryboard(DocumentModel docModel) {

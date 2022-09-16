@@ -24,18 +24,14 @@ import org.nuxeo.runtime.test.runner.TransactionalFeature;
 
 @RunWith(FeaturesRunner.class)
 @Features(VideoExtFeature.class)
-@Deploy({
-        "nuxeo-video-ext-core:reenable-video-changed-listener-contrib.xml",
-        "nuxeo-video-ext-core:dummy-video-converter-contrib.xml"
-})
+@Deploy({ "nuxeo-video-ext-core:reenable-video-changed-listener-contrib.xml",
+        "nuxeo-video-ext-core:dummy-video-converter-contrib.xml" })
 public class TestPlatformDefaultBehaviorCompat {
 
     @Inject
-    CoreSession session;
-
-    @Inject
     protected TransactionalFeature transactionalFeature;
-
+    @Inject
+    CoreSession session;
     @Inject
     VideoExtFeature videoExtFeature;
 
@@ -48,19 +44,19 @@ public class TestPlatformDefaultBehaviorCompat {
 
         transactionalFeature.nextTransaction();
 
-        //reload document
+        // reload document
         doc = session.getDocument(doc.getRef());
-        VideoDocument videoDocument = doc.getAdapter(VideoDocument.class,true);
+        VideoDocument videoDocument = doc.getAdapter(VideoDocument.class, true);
 
         Collection<TranscodedVideo> transcodedVideos = videoDocument.getTranscodedVideos();
-        Assert.assertTrue(transcodedVideos.size()>0);
+        Assert.assertTrue(transcodedVideos.size() > 0);
 
         VideoInfo videoInfo = videoDocument.getVideo().getVideoInfo();
         Assert.assertNotNull(videoInfo);
-        Assert.assertTrue(videoInfo.getDuration()>0);
+        Assert.assertTrue(videoInfo.getDuration() > 0);
 
         List<Map<String, Serializable>> views = (List<Map<String, Serializable>>) doc.getPropertyValue("picture:views");
-        Assert.assertEquals(2,views.size());
+        Assert.assertEquals(2, views.size());
 
     }
 

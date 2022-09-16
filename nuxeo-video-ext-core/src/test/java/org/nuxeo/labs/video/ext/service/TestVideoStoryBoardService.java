@@ -10,7 +10,6 @@ import javax.inject.Inject;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.nuxeo.ecm.core.api.Blob;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.event.test.CapturingEventListener;
@@ -26,16 +25,13 @@ import org.nuxeo.runtime.test.runner.TransactionalFeature;
 public class TestVideoStoryBoardService {
 
     @Inject
-    CoreSession session;
-
-    @Inject
-    VideoExtFeature videoExtFeature;
-
-    @Inject
     protected TransactionalFeature transactionalFeature;
-
     @Inject
     protected VideoStoryBoardService videoStoryBoardService;
+    @Inject
+    CoreSession session;
+    @Inject
+    VideoExtFeature videoExtFeature;
 
     @Test
     public void testService() {

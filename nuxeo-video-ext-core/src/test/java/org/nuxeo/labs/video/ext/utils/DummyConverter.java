@@ -19,19 +19,19 @@
 
 package org.nuxeo.labs.video.ext.utils;
 
+import java.io.Serializable;
+import java.util.Map;
+
 import org.nuxeo.ecm.core.api.blobholder.BlobHolder;
 import org.nuxeo.ecm.core.convert.api.ConversionException;
 import org.nuxeo.ecm.core.convert.extension.Converter;
 import org.nuxeo.ecm.core.convert.extension.ConverterDescriptor;
 
-import java.io.Serializable;
-import java.util.Map;
-
 public class DummyConverter implements Converter {
 
     @Override
     public void init(ConverterDescriptor converterDescriptor) {
-        //nothing to do
+        // nothing to do
     }
 
     @Override
