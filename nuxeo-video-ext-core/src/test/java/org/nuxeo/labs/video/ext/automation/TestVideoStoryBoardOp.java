@@ -76,8 +76,8 @@ public class TestVideoStoryBoardOp {
 
         OperationContext ctx = new OperationContext(session);
         Map<String, Object> params = new HashMap<>();
-        List<String> timecodes = Arrays.asList("1000", "2000", "3000");
-        params.put("timecodeListinMillis", timecodes);
+        List<String> timecodes = Arrays.asList("1.000", "2.000", "3.000");
+        params.put("timecodeListInSeconds", timecodes);
         ctx.setInput(doc);
 
         doc = (DocumentModel) automationService.run(ctx, VideoStoryboardOp.ID, params);
@@ -98,7 +98,7 @@ public class TestVideoStoryBoardOp {
         doc = (DocumentModel) automationService.run(ctx, "javascript.test_video_storyboard_js", params);
 
         Storyboard storyboard = doc.getAdapter(StoryboardAdapter.class);
-        Assert.assertEquals(4, storyboard.size());
+        Assert.assertEquals(6, storyboard.size());
     }
 
 }

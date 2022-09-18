@@ -11,7 +11,7 @@
             <script><![CDATA[function run(input, params) {
                 return Video.Storyboard(input, {
                   'save': true,
-                  'timecodeListinMillis': ['0','1000','2000','3000']
+                  'timecodeListInSeconds': ['0','0.833','1.500','2.400','4.733','5.633']
                 });
              }]]>
             </script>

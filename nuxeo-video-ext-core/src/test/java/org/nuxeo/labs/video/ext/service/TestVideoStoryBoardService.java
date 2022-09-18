@@ -49,7 +49,7 @@ public class TestVideoStoryBoardService {
     @Test
     public void testComputeCustomStoryboard() {
         DocumentModel doc = videoExtFeature.getVideoDocument(session);
-        videoStoryBoardService.updateStoryboard(doc, new long[] { 5000, 10000, 60000 });
+        videoStoryBoardService.updateStoryboard(doc, new double[] { 5.0d, 10.0d, 60.0d });
         Storyboard storyboard = doc.getAdapter(StoryboardAdapter.class);
         Assert.assertEquals(3, storyboard.size());
     }

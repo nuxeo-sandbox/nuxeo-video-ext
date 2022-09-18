@@ -25,7 +25,6 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.nuxeo.ecm.automation.OperationContext;
-import org.nuxeo.ecm.automation.core.Constants;
 import org.nuxeo.ecm.automation.core.annotations.Context;
 import org.nuxeo.ecm.automation.core.annotations.Operation;
 import org.nuxeo.ecm.automation.core.annotations.OperationMethod;
@@ -37,7 +36,7 @@ import org.nuxeo.labs.video.ext.service.VideoStoryBoardService;
 /**
  *
  */
-@Operation(id = VideoStoryboardOp.ID, category = Constants.CAT_BLOB, label = "Generate a storyboard", description = "Generate a storyboard for the input video document")
+@Operation(id = VideoStoryboardOp.ID, category = "Video", label = "Generate a storyboard", description = "Generate a storyboard for the input video document")
 public class VideoStoryboardOp {
 
     public static final String ID = "Video.Storyboard";
@@ -50,8 +49,8 @@ public class VideoStoryboardOp {
     @Context
     protected VideoStoryBoardService storyboardService;
 
-    @Param(name = "timecodeListinMillis", description = "List of timecodes in milliseconds", required = false)
-    protected List<String> timecodeListInMillis = new ArrayList<>();
+    @Param(name = "timecodeListInSeconds", description = "List of timecodes in seconds", required = false)
+    protected List<String> timecodeListInSeconds = new ArrayList<>();
 
     @Param(name = "save", description = "Save modification made to the input document", required = false)
     protected boolean save = false;
@@ -62,8 +61,8 @@ public class VideoStoryboardOp {
         if (videoDoc == null)
             return doc;
 
-        if (!timecodeListInMillis.isEmpty()) {
-            long[] timecodes = timecodeListInMillis.stream().mapToLong(Long::parseLong).toArray();
+        if (!timecodeListInSeconds.isEmpty()) {
+            double[] timecodes = timecodeListInSeconds.stream().mapToDouble(Double::parseDouble).toArray();
             storyboardService.updateStoryboard(doc, timecodes);
         } else {
             storyboardService.updateStoryboard(doc);

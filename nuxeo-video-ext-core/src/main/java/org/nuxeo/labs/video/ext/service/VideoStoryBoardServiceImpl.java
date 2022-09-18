@@ -29,6 +29,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.math3.util.Precision;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.nuxeo.ecm.core.api.Blob;
@@ -54,15 +55,15 @@ public class VideoStoryBoardServiceImpl implements VideoStoryBoardService {
 
     @Override
     public void updateStoryboard(DocumentModel docModel) {
-        this.updateStoryboard(docModel, new long[] {});
+        this.updateStoryboard(docModel, new double[] {});
     }
 
-    public void updateStoryboard(DocumentModel docModel, long[] timecodes) {
+    public void updateStoryboard(DocumentModel docModel, double[] timecodeInSeconds) {
         VideoDocument videoDocument = docModel.getAdapter(VideoDocument.class);
-        if (timecodes.length < 1) {
+        if (timecodeInSeconds.length < 1) {
             VideoHelper.updateStoryboard(docModel, videoDocument.getVideo().getBlob());
         } else {
-            computeStoryBoard(docModel, timecodes);
+            computeStoryBoard(docModel, timecodeInSeconds);
         }
     }
 
@@ -83,6 +84,7 @@ public class VideoStoryBoardServiceImpl implements VideoStoryBoardService {
 
     public void updatePreviews(DocumentModel docModel, double timecodeInSecond) {
         VideoDocument videoDocument = docModel.getAdapter(VideoDocument.class);
+        double roundedTimecode = Precision.round(timecodeInSecond / 1000.0f, 3);
         try {
             List<Map<String, Object>> views = new ArrayList<>();
             Map<String, Object> thumbnailView = new LinkedHashMap<>();
@@ -93,7 +95,7 @@ public class VideoStoryBoardServiceImpl implements VideoStoryBoardService {
             staticPlayerView.put("title", "StaticPlayerView");
             staticPlayerView.put("maxsize", (long) AbstractPictureAdapter.MEDIUM_SIZE);
             views.add(staticPlayerView);
-            VideoHelper.updatePreviews(docModel, videoDocument.getVideo().getBlob(), timecodeInSecond, views);
+            VideoHelper.updatePreviews(docModel, videoDocument.getVideo().getBlob(), roundedTimecode, views);
         } catch (IOException e) {
             throw new NuxeoException(e);
         }
@@ -115,19 +117,19 @@ public class VideoStoryBoardServiceImpl implements VideoStoryBoardService {
         workManager.schedule(work, true);
     }
 
-    public void computeStoryBoard(DocumentModel docModel, long[] timecodes) {
+    public void computeStoryBoard(DocumentModel docModel, double[] timecodesInSeconds) {
         StoryboardAdapter storyboard = docModel.getAdapter(StoryboardAdapter.class);
         VideoDocument videoDocument = docModel.getAdapter(VideoDocument.class);
         Blob video = videoDocument.getVideo().getBlob();
-        for (long timecode : timecodes) {
+        for (double timecode : timecodesInSeconds) {
             try {
                 Map<String, Serializable> parameters = new HashMap<>();
-                double timecodeInSecond = timecode / 1000.0f;
-                parameters.put(POSITION_PARAMETER, String.format("%.3f", timecodeInSecond));
+                double roundedTimecode = Precision.round(timecode, 3);
+                parameters.put(POSITION_PARAMETER, String.format("%.3f", roundedTimecode));
                 BlobHolder result = Framework.getService(ConversionService.class)
                                              .convert(SCREENSHOT_CONVERTER_NAME, new SimpleBlobHolder(video),
                                                      parameters);
-                Frame frame = new Frame(result.getBlob(), timecodeInSecond, null);
+                Frame frame = new Frame(result.getBlob(), roundedTimecode, null);
                 storyboard.addFrame(frame);
             } catch (ConversionException e) {
                 // this can happen when if the codec is not supported or not

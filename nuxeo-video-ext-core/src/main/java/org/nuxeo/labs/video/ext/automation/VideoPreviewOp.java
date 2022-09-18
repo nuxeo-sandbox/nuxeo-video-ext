@@ -22,7 +22,6 @@ package org.nuxeo.labs.video.ext.automation;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.nuxeo.ecm.automation.OperationContext;
-import org.nuxeo.ecm.automation.core.Constants;
 import org.nuxeo.ecm.automation.core.annotations.Context;
 import org.nuxeo.ecm.automation.core.annotations.Operation;
 import org.nuxeo.ecm.automation.core.annotations.OperationMethod;
@@ -34,7 +33,7 @@ import org.nuxeo.labs.video.ext.service.VideoStoryBoardService;
 /**
  *
  */
-@Operation(id = VideoPreviewOp.ID, category = Constants.CAT_BLOB, label = "Generate a preview and thumbnail", description = "Generate a preview and thumbnail image for the input video document")
+@Operation(id = VideoPreviewOp.ID, category = "Video", label = "Generate a preview and thumbnail", description = "Generate a preview and thumbnail image for the input video document")
 public class VideoPreviewOp {
 
     public static final String ID = "Video.Preview";

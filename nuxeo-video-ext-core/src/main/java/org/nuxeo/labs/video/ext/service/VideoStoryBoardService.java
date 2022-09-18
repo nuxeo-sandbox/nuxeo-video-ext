@@ -25,7 +25,7 @@ public interface VideoStoryBoardService {
 
     void updateStoryboard(DocumentModel docModel);
 
-    void updateStoryboard(DocumentModel docModel, long[] timecodes);
+    void updateStoryboard(DocumentModel docModel, double[] timecodeInSeconds);
 
     void clearStoryboard(DocumentModel docModel);
 
