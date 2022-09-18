@@ -5,18 +5,18 @@
 
     <extension target="org.nuxeo.ecm.core.event.EventServiceComponent" point="listener">
         <listener name="videoChangedListener"
-                  class="org.nuxeo.labs.video.ext.listener.ExtendedVideoChangedListener">
+                  class="org.nuxeo.labs.video.ext.listener.ExtendedVideoChangedListener" enabled="${nuxeo.video.default.info:=true}">
             <event>documentCreated</event>
             <event>beforeDocumentModification</event>
         </listener>
 
         <listener name="triggerVideoConversionlistener"
-                  class="org.nuxeo.labs.video.ext.listener.TriggerVideoConversionListener">
+                  class="org.nuxeo.labs.video.ext.listener.TriggerVideoConversionListener" enabled="${nuxeo.video.default.conversion:=true}">
             <event>videoInfoDone</event>
         </listener>
 
         <listener name="triggerVideoStoryboardlistener"
-                  class="org.nuxeo.labs.video.ext.listener.TriggerVideoStoryboardListener">
+                  class="org.nuxeo.labs.video.ext.listener.TriggerVideoStoryboardListener" enabled="${nuxeo.video.default.storyboard:=true}">
             <event>videoInfoDone</event>
         </listener>
     </extension>

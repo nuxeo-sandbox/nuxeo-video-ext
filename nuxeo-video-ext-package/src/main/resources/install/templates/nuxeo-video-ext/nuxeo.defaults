@@ -4,4 +4,6 @@
 # Set list of templates to include, comma separated values.
 nuxeo.template.includes=common
 
-# org.nuxeo.ecm.instance.description=Nuxeo ECM customized with nuxeo-video-ext
+nuxeo.video.default.info=true
+nuxeo.video.default.conversion=true
+nuxeo.video.default.storyboard=true
