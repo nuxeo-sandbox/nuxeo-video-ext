@@ -16,11 +16,14 @@ import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.platform.video.TranscodedVideo;
 import org.nuxeo.ecm.platform.video.VideoDocument;
 import org.nuxeo.ecm.platform.video.VideoInfo;
+import org.nuxeo.labs.video.ext.adapter.StoryboardAdapter;
 import org.nuxeo.labs.video.ext.utils.VideoExtFeature;
 import org.nuxeo.runtime.test.runner.Deploy;
 import org.nuxeo.runtime.test.runner.Features;
 import org.nuxeo.runtime.test.runner.FeaturesRunner;
 import org.nuxeo.runtime.test.runner.TransactionalFeature;
+
+import static org.nuxeo.ecm.platform.video.VideoHelper.DEFAULT_NUMBER_OF_THUMBNAILS;
 
 @RunWith(FeaturesRunner.class)
 @Features(VideoExtFeature.class)
@@ -48,16 +51,22 @@ public class TestPlatformDefaultBehaviorCompat {
         doc = session.getDocument(doc.getRef());
         VideoDocument videoDocument = doc.getAdapter(VideoDocument.class, true);
 
-        Collection<TranscodedVideo> transcodedVideos = videoDocument.getTranscodedVideos();
-        Assert.assertTrue(transcodedVideos.size() > 0);
-
+        //check video metadata
         VideoInfo videoInfo = videoDocument.getVideo().getVideoInfo();
         Assert.assertNotNull(videoInfo);
         Assert.assertTrue(videoInfo.getDuration() > 0);
 
+        //check conversions
+        Collection<TranscodedVideo> transcodedVideos = videoDocument.getTranscodedVideos();
+        Assert.assertTrue(transcodedVideos.size() > 0);
+
+        //check preview
         List<Map<String, Serializable>> views = (List<Map<String, Serializable>>) doc.getPropertyValue("picture:views");
         Assert.assertEquals(2, views.size());
 
+        //check storyboard
+        StoryboardAdapter storyboardAdapter = doc.getAdapter(StoryboardAdapter.class);
+        Assert.assertEquals(DEFAULT_NUMBER_OF_THUMBNAILS,storyboardAdapter.size());
     }
 
 }
