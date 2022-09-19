@@ -1,6 +1,6 @@
 # Description
 
-This plugin provides an extended API to handle video files which is less monolithic and more extensible that that
+This plugin provides an extended API to handle video files which is less monolithic and more extensible that the
 default platform implementation.
 
 # How to build
