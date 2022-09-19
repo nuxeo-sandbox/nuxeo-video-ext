@@ -23,10 +23,22 @@ import org.nuxeo.ecm.core.api.DocumentModel;
 
 public interface VideoInfoService {
 
+    /**
+     * Clears the video metadata from the document model
+     * @param docModel A document
+     */
     void clearVideoInfo(DocumentModel docModel);
 
+    /**
+     * Update the video metadata on the input document model
+     * @param docModel A document
+     */
     void updateVideoInfo(DocumentModel docModel);
 
+    /**
+     * Queue a worker to update the video metadata on the input document
+     * @param doc A document
+     */
     void scheduleVideoInfoWork(DocumentModel doc);
 
 }

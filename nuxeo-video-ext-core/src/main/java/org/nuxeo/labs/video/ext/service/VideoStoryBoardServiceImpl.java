@@ -82,6 +82,7 @@ public class VideoStoryBoardServiceImpl implements VideoStoryBoardService {
         }
     }
 
+    @Override
     public void updatePreviews(DocumentModel docModel, double timecodeInSecond) {
         VideoDocument videoDocument = docModel.getAdapter(VideoDocument.class);
         double roundedTimecode = Precision.round(timecodeInSecond / 1000.0f, 3);
@@ -110,6 +111,7 @@ public class VideoStoryBoardServiceImpl implements VideoStoryBoardService {
         }
     }
 
+    @Override
     public void scheduleVideoStoryboardWork(DocumentModel doc) {
         WorkManager workManager = Framework.getService(WorkManager.class);
         ExtendedVideoStoryboardWork work = new ExtendedVideoStoryboardWork(doc.getRepositoryName(), doc.getId());
@@ -117,6 +119,11 @@ public class VideoStoryBoardServiceImpl implements VideoStoryBoardService {
         workManager.schedule(work, true);
     }
 
+    /**
+     * Generate and save the storyboard on the input document using an array of frame time codes
+     * @param docModel A document
+     * @param timecodesInSeconds the time codes of frames to use to build the storyboard
+     */
     public void computeStoryBoard(DocumentModel docModel, double[] timecodesInSeconds) {
         StoryboardAdapter storyboard = docModel.getAdapter(StoryboardAdapter.class);
         VideoDocument videoDocument = docModel.getAdapter(VideoDocument.class);

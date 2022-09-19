@@ -23,18 +23,48 @@ import org.nuxeo.ecm.core.api.DocumentModel;
 
 public interface VideoStoryBoardService {
 
+    /**
+     * Update the storyboard on the input document
+     * @param docModel A document
+     */
     void updateStoryboard(DocumentModel docModel);
 
+    /**
+     * Update the storyboard on the input document using an array of frame time codes
+     * @param docModel A document
+     * @param timecodeInSeconds the time codes of frames to use to build the storyboard
+     */
     void updateStoryboard(DocumentModel docModel, double[] timecodeInSeconds);
 
+    /**
+     * Remove the storyboard on the input document
+     * @param docModel A document
+     */
     void clearStoryboard(DocumentModel docModel);
 
+    /**
+     * Update the playback preview and thumbnail on the input document
+     * @param docModel A document
+     */
     void updatePreviews(DocumentModel docModel);
 
+    /**
+     *  Update the playback preview and thumbnail on the input document using the frame corresponding to the input time code
+     * @param docModel A document
+     * @param timecodeInSecond A frame timecode in seconds
+     */
     void updatePreviews(DocumentModel docModel, double timecodeInSecond);
 
+    /**
+     * Clears the playback preview and thumbnail on the input document
+     * @param docModel A document
+     */
     void clearPreviews(DocumentModel docModel);
 
+    /**
+     * Queue a worker to update the video storyboard, playback preview and thumbnail of the input document
+     * @param doc
+     */
     void scheduleVideoStoryboardWork(DocumentModel doc);
 
 }
