@@ -19,6 +19,7 @@
 
 package org.nuxeo.labs.video.ext.service;
 
+import org.nuxeo.ecm.core.api.Blob;
 import org.nuxeo.ecm.core.api.DocumentModel;
 
 public interface VideoStoryBoardService {
@@ -66,5 +67,13 @@ public interface VideoStoryBoardService {
      * @param doc
      */
     void scheduleVideoStoryboardWork(DocumentModel doc);
+
+    /**
+     *
+     * @param video a video Blob
+     * @param timecode A frame timecode in seconds
+     * @return a screenshot image blob
+     */
+    Blob screenshot(Blob video, double timecode);
 
 }

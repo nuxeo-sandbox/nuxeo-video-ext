@@ -130,13 +130,9 @@ public class VideoStoryBoardServiceImpl implements VideoStoryBoardService {
         Blob video = videoDocument.getVideo().getBlob();
         for (double timecode : timecodesInSeconds) {
             try {
-                Map<String, Serializable> parameters = new HashMap<>();
                 double roundedTimecode = Precision.round(timecode, 3);
-                parameters.put(POSITION_PARAMETER, String.format("%.3f", roundedTimecode));
-                BlobHolder result = Framework.getService(ConversionService.class)
-                                             .convert(SCREENSHOT_CONVERTER_NAME, new SimpleBlobHolder(video),
-                                                     parameters);
-                Frame frame = new Frame(result.getBlob(), roundedTimecode, null);
+                Blob screenshot = screenshot(video,roundedTimecode);
+                Frame frame = new Frame(screenshot, roundedTimecode, null);
                 storyboard.addFrame(frame);
             } catch (ConversionException e) {
                 // this can happen when if the codec is not supported or not
@@ -145,6 +141,15 @@ public class VideoStoryBoardServiceImpl implements VideoStoryBoardService {
                         docModel.getTitle(), video, e.getMessage()));
             }
         }
+    }
+
+    public Blob screenshot(Blob video, double timecode) {
+        Map<String, Serializable> parameters = new HashMap<>();
+        parameters.put(POSITION_PARAMETER, String.format("%.3f", timecode));
+        BlobHolder result = Framework.getService(ConversionService.class)
+                .convert(SCREENSHOT_CONVERTER_NAME, new SimpleBlobHolder(video),
+                        parameters);
+        return result.getBlob();
     }
 
 }
