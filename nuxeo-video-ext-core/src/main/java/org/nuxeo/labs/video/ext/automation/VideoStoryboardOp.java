@@ -50,7 +50,7 @@ public class VideoStoryboardOp {
     protected VideoStoryBoardService storyboardService;
 
     @Param(name = "timecodeListInSeconds", description = "List of timecodes in seconds", required = false)
-    protected List<Double> timecodeListInSeconds = new ArrayList<>();
+    protected List<Number> timecodeListInSeconds = new ArrayList<>();
 
     @Param(name = "save", description = "Save modification made to the input document", required = false)
     protected boolean save = false;
@@ -62,7 +62,7 @@ public class VideoStoryboardOp {
             return doc;
 
         if (!timecodeListInSeconds.isEmpty()) {
-            double[] timecodes = timecodeListInSeconds.stream().mapToDouble(Double::doubleValue).toArray();
+            double[] timecodes = timecodeListInSeconds.stream().mapToDouble(Number::doubleValue).toArray();
             storyboardService.updateStoryboard(doc, timecodes);
         } else {
             storyboardService.updateStoryboard(doc);

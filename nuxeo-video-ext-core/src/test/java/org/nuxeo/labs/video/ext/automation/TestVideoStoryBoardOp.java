@@ -101,4 +101,19 @@ public class TestVideoStoryBoardOp {
         Assert.assertEquals(7, storyboard.size());
     }
 
+    @Test
+    @Deploy("nuxeo-video-ext-core:test-automation-js-contrib.xml")
+    public void testZeroTimecodeFromAutomationJS() throws OperationException {
+        DocumentModel doc = videoExtFeature.getVideoDocument(session);
+
+        OperationContext ctx = new OperationContext(session);
+        Map<String, Object> params = new HashMap<>();
+        ctx.setInput(doc);
+
+        doc = (DocumentModel) automationService.run(ctx, "javascript.test_video_storyboard_zero_js", params);
+
+        Storyboard storyboard = doc.getAdapter(StoryboardAdapter.class);
+        Assert.assertEquals(1, storyboard.size());
+    }
+
 }

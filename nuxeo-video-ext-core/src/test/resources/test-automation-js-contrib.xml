@@ -17,6 +17,20 @@
             </script>
         </scriptedOperation>
 
+        <scriptedOperation id="javascript.test_video_storyboard_zero_js">
+            <inputType>document</inputType>
+            <outputType>document</outputType>
+            <category>javascript</category>
+            <description></description>
+            <script><![CDATA[function run(input, params) {
+                return Video.Storyboard(input, {
+                  'save': true,
+                  'timecodeListInSeconds': [0]
+                });
+             }]]>
+            </script>
+        </scriptedOperation>
+
         <scriptedOperation id="javascript.test_video_preview_js">
             <inputType>document</inputType>
             <outputType>document</outputType>
