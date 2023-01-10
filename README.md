@@ -64,8 +64,8 @@ Parameters:
 
 | Name                  | Description                                                                               | Type         | Required | Default value |
 |:----------------------|:------------------------------------------------------------------------------------------|:-------------|:---------|:--------------|
-| timecodeListInSeconds | A list of time codes in seconds corresponding to each frame of the storyboard to generate | List<String> | false    | empty         |
-| save                  | Save the document                                                                         | string       | false    | false         |
+| timecodeListInSeconds | A list of time codes in seconds corresponding to each frame of the storyboard to generate | List<Double> | false    | empty         |
+| save                  | Save the document                                                                         | boolean      | false    | false         |
 
 ### Video Preview
 
@@ -117,7 +117,7 @@ function run(input, params) {
     
     input = Video.Storyboard(input, {
       'save': false,
-      'timecodeListInSeconds': timecodeInSeconds.map(function(timecode){return ''+timecode;})
+      'timecodeListInSeconds': timecodeInSeconds
     });
     
     var previewTimecode = timecodeInSeconds.length > 0 ?  timecodeInSeconds[0] : 0;
