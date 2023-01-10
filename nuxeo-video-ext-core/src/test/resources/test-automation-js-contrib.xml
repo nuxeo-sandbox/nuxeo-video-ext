@@ -11,14 +11,11 @@
             <script><![CDATA[function run(input, params) {
                 return Video.Storyboard(input, {
                   'save': true,
-                  'timecodeListInSeconds': ['0','0.833','1.500','2.400','4.733','5.633']
+                  'timecodeListInSeconds': [0, 0.833, 1, 1.500, 2.400 , 4.733, 5.633]
                 });
              }]]>
             </script>
         </scriptedOperation>
-    </extension>
-
-    <extension target="org.nuxeo.automation.scripting.internals.AutomationScriptingComponent" point="operation">
 
         <scriptedOperation id="javascript.test_video_preview_js">
             <inputType>document</inputType>
@@ -28,7 +25,7 @@
             <script><![CDATA[function run(input, params) {
                 return Video.Preview(input, {
                   'save': true,
-                  'timecodeInSecond': 2.5
+                  'timecodeInSecond': 1
                 });
              }]]>
             </script>

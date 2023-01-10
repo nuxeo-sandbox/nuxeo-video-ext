@@ -51,7 +51,21 @@ public class TestVideoScreenshotOp {
 
 
     @Test
-    public void testWithTimecodes() throws OperationException {
+    public void testWithIntegerTimecode() throws OperationException {
+        Blob blob = videoExtFeature.getVideoBlob();
+
+        OperationContext ctx = new OperationContext(session);
+        Map<String, Object> params = new HashMap<>();
+        params.put("timecodeInSecond", 2);
+        ctx.setInput(blob);
+
+        Blob screenshot = (Blob) automationService.run(ctx, VideoScreenShotOp.ID, params);
+
+        Assert.assertNotNull(screenshot);
+    }
+
+    @Test
+    public void testWithDoubleTimecode() throws OperationException {
         Blob blob = videoExtFeature.getVideoBlob();
 
         OperationContext ctx = new OperationContext(session);

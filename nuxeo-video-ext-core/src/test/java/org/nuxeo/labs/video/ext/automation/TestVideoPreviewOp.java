@@ -34,6 +34,7 @@ import org.nuxeo.ecm.automation.OperationContext;
 import org.nuxeo.ecm.automation.OperationException;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
+import org.nuxeo.ecm.platform.picture.api.adapters.MultiviewPictureAdapter;
 import org.nuxeo.labs.video.ext.utils.VideoExtFeature;
 import org.nuxeo.runtime.test.runner.Deploy;
 import org.nuxeo.runtime.test.runner.Features;
@@ -62,12 +63,12 @@ public class TestVideoPreviewOp {
 
         doc = (DocumentModel) automationService.run(ctx, VideoPreviewOp.ID, params);
 
-        List<Map<String, Serializable>> views = (List<Map<String, Serializable>>) doc.getPropertyValue("picture:views");
-        Assert.assertEquals(2, views.size());
+        MultiviewPictureAdapter adapter = new MultiviewPictureAdapter(doc);
+        Assert.assertEquals(2, adapter.getViews().length);
     }
 
     @Test
-    public void testWithTimecode() throws OperationException {
+    public void testWithDoubleTimecode() throws OperationException {
         DocumentModel doc = videoExtFeature.getVideoDocument(session);
 
         OperationContext ctx = new OperationContext(session);
@@ -77,8 +78,23 @@ public class TestVideoPreviewOp {
 
         doc = (DocumentModel) automationService.run(ctx, VideoStoryboardOp.ID, params);
 
-        List<Map<String, Serializable>> views = (List<Map<String, Serializable>>) doc.getPropertyValue("picture:views");
-        Assert.assertEquals(2, views.size());
+        MultiviewPictureAdapter adapter = new MultiviewPictureAdapter(doc);
+        Assert.assertEquals(2, adapter.getViews().length);
+    }
+
+    @Test
+    public void testWithIntegerTimecode() throws OperationException {
+        DocumentModel doc = videoExtFeature.getVideoDocument(session);
+
+        OperationContext ctx = new OperationContext(session);
+        Map<String, Object> params = new HashMap<>();
+        params.put("timecodeInSecond", 2);
+        ctx.setInput(doc);
+
+        doc = (DocumentModel) automationService.run(ctx, VideoStoryboardOp.ID, params);
+
+        MultiviewPictureAdapter adapter = new MultiviewPictureAdapter(doc);
+        Assert.assertEquals(2, adapter.getViews().length);
     }
 
     @Test
@@ -92,8 +108,8 @@ public class TestVideoPreviewOp {
 
         doc = (DocumentModel) automationService.run(ctx, "javascript.test_video_preview_js", params);
 
-        List<Map<String, Serializable>> views = (List<Map<String, Serializable>>) doc.getPropertyValue("picture:views");
-        Assert.assertEquals(2, views.size());
+        MultiviewPictureAdapter adapter = new MultiviewPictureAdapter(doc);
+        Assert.assertEquals(2, adapter.getViews().length);
     }
 
 }

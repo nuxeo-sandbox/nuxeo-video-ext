@@ -7,4 +7,10 @@
         <operation class="org.nuxeo.labs.video.ext.automation.VideoScreenShotOp"/>
     </extension>
 
+    <extension target="org.nuxeo.ecm.core.operation.OperationServiceComponent" point="adapters">
+        <adapter class="org.nuxeo.labs.video.ext.automation.adapter.IntegerToDoubleAdpater"
+                 accept="java.lang.Integer" produce="java.lang.Double" />
+    </extension>
+
+
 </component>
