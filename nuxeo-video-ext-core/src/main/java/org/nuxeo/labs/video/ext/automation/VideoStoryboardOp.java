@@ -22,8 +22,8 @@ package org.nuxeo.labs.video.ext.automation;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.nuxeo.ecm.automation.OperationContext;
 import org.nuxeo.ecm.automation.core.annotations.Context;
 import org.nuxeo.ecm.automation.core.annotations.Operation;
@@ -41,7 +41,7 @@ public class VideoStoryboardOp {
 
     public static final String ID = "Video.Storyboard";
 
-    private static final Log log = LogFactory.getLog(VideoStoryboardOp.class);
+    private static final Logger log = LogManager.getLogger(VideoStoryboardOp.class);
 
     @Context
     protected OperationContext ctx;

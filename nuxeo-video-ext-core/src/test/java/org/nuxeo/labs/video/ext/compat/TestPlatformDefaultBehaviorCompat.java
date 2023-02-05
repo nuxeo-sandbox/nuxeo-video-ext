@@ -1,9 +1,9 @@
 package org.nuxeo.labs.video.ext.compat;
 
+import static org.nuxeo.ecm.platform.video.VideoHelper.DEFAULT_NUMBER_OF_THUMBNAILS;
+
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -13,6 +13,7 @@ import org.junit.runner.RunWith;
 import org.nuxeo.ecm.core.api.Blob;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
+import org.nuxeo.ecm.platform.picture.api.adapters.MultiviewPictureAdapter;
 import org.nuxeo.ecm.platform.video.TranscodedVideo;
 import org.nuxeo.ecm.platform.video.VideoDocument;
 import org.nuxeo.ecm.platform.video.VideoInfo;
@@ -22,8 +23,6 @@ import org.nuxeo.runtime.test.runner.Deploy;
 import org.nuxeo.runtime.test.runner.Features;
 import org.nuxeo.runtime.test.runner.FeaturesRunner;
 import org.nuxeo.runtime.test.runner.TransactionalFeature;
-
-import static org.nuxeo.ecm.platform.video.VideoHelper.DEFAULT_NUMBER_OF_THUMBNAILS;
 
 @RunWith(FeaturesRunner.class)
 @Features(VideoExtFeature.class)
@@ -61,8 +60,8 @@ public class TestPlatformDefaultBehaviorCompat {
         Assert.assertTrue(transcodedVideos.size() > 0);
 
         //check preview
-        List<Map<String, Serializable>> views = (List<Map<String, Serializable>>) doc.getPropertyValue("picture:views");
-        Assert.assertEquals(2, views.size());
+        MultiviewPictureAdapter adapter = new MultiviewPictureAdapter(doc);
+        Assert.assertEquals(2, adapter.getViews().length);
 
         //check storyboard
         StoryboardAdapter storyboardAdapter = doc.getAdapter(StoryboardAdapter.class);

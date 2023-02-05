@@ -42,6 +42,11 @@ public class StoryboardImpl implements Storyboard {
     }
 
     @Override
+    public boolean isEmpty() {
+        return this.size() == 0;
+    }
+
+    @Override
     public List<Frame> getFrames() {
         return frames;
     }

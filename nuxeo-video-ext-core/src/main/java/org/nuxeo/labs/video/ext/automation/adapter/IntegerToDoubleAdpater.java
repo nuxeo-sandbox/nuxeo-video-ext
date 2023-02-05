@@ -27,6 +27,6 @@ public class IntegerToDoubleAdpater implements TypeAdapter {
     @Override
     public Object getAdaptedValue(OperationContext operationContext, Object o) throws TypeAdaptException {
         Integer value = (Integer) o;
-        return new Double(value);
+        return Double.valueOf(value);
     }
 }

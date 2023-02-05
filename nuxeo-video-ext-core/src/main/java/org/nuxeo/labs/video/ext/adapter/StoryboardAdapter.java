@@ -22,12 +22,12 @@ package org.nuxeo.labs.video.ext.adapter;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-import org.apache.commons.collections.map.HashedMap;
 import org.nuxeo.ecm.core.api.Blob;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.platform.video.VideoConstants;
@@ -73,6 +73,11 @@ public class StoryboardAdapter implements Storyboard {
     }
 
     @Override
+    public boolean isEmpty() {
+        return this.size() == 0;
+    }
+
+    @Override
     public List<Frame> getFrames() {
         return new ArrayList<>(frames);
     }
@@ -80,7 +85,7 @@ public class StoryboardAdapter implements Storyboard {
     protected void updateDoc() {
         List<Map<String, Serializable>> property = new ArrayList<>();
         for (Frame frame : frames) {
-            Map<String, Serializable> item = new HashedMap();
+            Map<String, Serializable> item = new HashMap<>();
             item.put("content", (Serializable) frame.getBlob());
             item.put("timecode", frame.getTimeInSeconds());
             item.put("comment", frame.getComment());

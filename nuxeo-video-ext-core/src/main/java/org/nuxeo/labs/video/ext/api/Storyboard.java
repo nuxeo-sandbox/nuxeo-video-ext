@@ -29,6 +29,8 @@ public interface Storyboard {
 
     int size();
 
+    boolean isEmpty();
+
     List<Frame> getFrames();
 
 }

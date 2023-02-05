@@ -47,11 +47,10 @@ public class TriggerVideoConversionListener implements EventListener {
     @Override
     public void handleEvent(Event event) {
         EventContext ctx = event.getContext();
-        if (!(ctx instanceof DocumentEventContext)) {
+        if (!(ctx instanceof DocumentEventContext docCtx)) {
             return;
         }
 
-        DocumentEventContext docCtx = (DocumentEventContext) ctx;
         DocumentModel doc = docCtx.getSourceDocument();
 
         List<String> conversions = AutomaticVideoConversionGetter.getAutomaticVideoConversions()

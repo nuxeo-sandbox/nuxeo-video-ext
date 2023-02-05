@@ -19,8 +19,8 @@
 
 package org.nuxeo.labs.video.ext.automation;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.nuxeo.ecm.automation.OperationContext;
 import org.nuxeo.ecm.automation.core.annotations.Context;
 import org.nuxeo.ecm.automation.core.annotations.Operation;
@@ -38,7 +38,7 @@ public class VideoPreviewOp {
 
     public static final String ID = "Video.Preview";
 
-    private static final Log log = LogFactory.getLog(VideoPreviewOp.class);
+    private static final Logger log = LogManager.getLogger(VideoPreviewOp.class);
 
     @Context
     protected OperationContext ctx;
@@ -62,7 +62,7 @@ public class VideoPreviewOp {
         if (timecodeInSecond == null) {
             storyboardService.updatePreviews(doc);
         } else {
-            storyboardService.updatePreviews(doc, timecodeInSecond.doubleValue());
+            storyboardService.updatePreviews(doc, timecodeInSecond);
         }
 
         if (save) {

@@ -19,10 +19,6 @@
 
 package org.nuxeo.labs.video.ext.work;
 
-import java.io.Serializable;
-import java.util.List;
-import java.util.Map;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.nuxeo.ecm.core.api.Blob;
@@ -31,8 +27,9 @@ import org.nuxeo.ecm.core.api.IdRef;
 import org.nuxeo.ecm.core.event.Event;
 import org.nuxeo.ecm.core.event.EventService;
 import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
-import org.nuxeo.ecm.platform.video.VideoConstants;
+import org.nuxeo.ecm.platform.picture.api.adapters.MultiviewPictureAdapter;
 import org.nuxeo.ecm.platform.video.service.VideoStoryboardWork;
+import org.nuxeo.labs.video.ext.adapter.StoryboardAdapter;
 import org.nuxeo.labs.video.ext.service.VideoStoryBoardService;
 import org.nuxeo.runtime.api.Framework;
 
@@ -54,7 +51,7 @@ public class ExtendedVideoStoryboardWork extends VideoStoryboardWork {
 
     @Override
     protected boolean updateStoryboard(DocumentModel doc, Blob blob) {
-        var storyboard = (List<Map<String, Serializable>>) doc.getPropertyValue(VideoConstants.STORYBOARD_PROPERTY);
+        var storyboard = doc.getAdapter(StoryboardAdapter.class);
         if (storyboard != null && !storyboard.isEmpty()) {
             return false;
         }
@@ -67,8 +64,8 @@ public class ExtendedVideoStoryboardWork extends VideoStoryboardWork {
 
     @Override
     protected boolean updatePreviews(DocumentModel doc, Blob blob) {
-        var previews = (List<Map<String, Serializable>>) doc.getPropertyValue("picture:views");
-        if (previews != null && !previews.isEmpty()) {
+        var previews = new MultiviewPictureAdapter(doc);
+        if (previews.getViews().length > 0) {
             return false;
         }
         log.debug(String.format("Updating previews of Video document %s.", doc));

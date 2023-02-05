@@ -35,11 +35,10 @@ public class TriggerVideoStoryboardListener implements EventListener {
     @Override
     public void handleEvent(Event event) {
         EventContext ctx = event.getContext();
-        if (!(ctx instanceof DocumentEventContext)) {
+        if (!(ctx instanceof DocumentEventContext docCtx)) {
             return;
         }
 
-        DocumentEventContext docCtx = (DocumentEventContext) ctx;
         DocumentModel doc = docCtx.getSourceDocument();
 
         if (doc.hasFacet(HAS_VIDEO_PREVIEW_FACET) && doc.hasFacet(HAS_STORYBOARD_FACET)) {
