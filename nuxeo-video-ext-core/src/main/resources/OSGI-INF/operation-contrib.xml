@@ -12,5 +12,8 @@
                  accept="java.lang.Integer" produce="java.lang.Double" />
     </extension>
 
+    <extension target="org.nuxeo.ecm.core.operation.OperationServiceComponent" point="contextHelpers">
+        <contextHelper id="VideoFrameHelper" class="org.nuxeo.labs.video.ext.automation.functions.VideoFrameFunctions"/>
+    </extension>
 
 </component>

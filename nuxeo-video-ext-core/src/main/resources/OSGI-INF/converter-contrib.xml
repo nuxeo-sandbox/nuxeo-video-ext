@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <component name="org.nuxeo.labs.video.ext.converters">
+
     <extension target="org.nuxeo.ecm.core.convert.service.ConversionServiceImpl"
                point="converter">
         <converter name="video-screenshot" class="org.nuxeo.ecm.platform.convert.plugins.CommandLineConverter">
@@ -11,6 +12,15 @@
                 <parameter name="CommandLineName">ffmpeg-screenshot-cli</parameter>
             </parameters>
         </converter>
+
+        <converter name="imageMeanGrey" class="org.nuxeo.ecm.platform.convert.plugins.CommandLineConverter">
+            <sourceMimeType>image/png</sourceMimeType>
+            <sourceMimeType>image/jpeg</sourceMimeType>
+            <parameters>
+                <parameter name="CommandLineName">imageMeanGrey</parameter>
+            </parameters>
+        </converter>
+
     </extension>
 </component>
 

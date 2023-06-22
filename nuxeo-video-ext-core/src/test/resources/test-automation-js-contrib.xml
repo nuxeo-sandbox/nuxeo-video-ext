@@ -44,6 +44,22 @@
              }]]>
             </script>
         </scriptedOperation>
+
+        <scriptedOperation id="javascript.test_black_frame_helper">
+            <inputType>blob</inputType>
+            <outputType>void</outputType>
+            <category>javascript</category>
+            <description></description>
+            <script><![CDATA[function run(input, params) {
+                var isBlackFrame = VideoFrameHelper.isBlackFrame(input);
+                if (isBlackFrame) {
+                    throw "sorry";
+                }
+             }]]>
+            </script>
+        </scriptedOperation>
+
+
     </extension>
 
 </component>

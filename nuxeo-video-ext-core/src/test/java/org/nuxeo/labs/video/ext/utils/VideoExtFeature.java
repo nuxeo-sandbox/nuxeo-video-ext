@@ -46,6 +46,15 @@ import org.nuxeo.runtime.test.runner.RunnerFeature;
         "org.nuxeo.ecm.platform.video", "nuxeo-video-ext-core:disable-video-changed-listener-contrib.xml" })
 public class VideoExtFeature implements RunnerFeature {
 
+
+    public Blob getBlackFrameBlob() {
+        return new FileBlob(FileUtils.getResourceFileFromContext("files/black.jpg"), "image/jpeg");
+    }
+
+    public Blob getRegularFrameBlob() {
+        return new FileBlob(FileUtils.getResourceFileFromContext("files/frame.png"), "image/png");
+    }
+
     public Blob getVideoBlob() {
         return new FileBlob(FileUtils.getResourceFileFromContext("files/TourEiffel.mp4"), "video/mp4");
     }
