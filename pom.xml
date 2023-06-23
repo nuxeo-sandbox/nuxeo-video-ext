@@ -9,7 +9,7 @@
 
   <groupId>org.nuxeo.labs.video.ext</groupId>
   <artifactId>nuxeo-video-ext-parent</artifactId>
-  <version>2021.4.0-SNAPSHOT</version>
+  <version>2021.5.0-SNAPSHOT</version>
   <name>Nuxeo video ext parent</name>
   <description />
   <packaging>pom</packaging>
