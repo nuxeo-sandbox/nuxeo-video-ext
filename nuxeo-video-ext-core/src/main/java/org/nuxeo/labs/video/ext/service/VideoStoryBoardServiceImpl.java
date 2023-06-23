@@ -85,7 +85,7 @@ public class VideoStoryBoardServiceImpl implements VideoStoryBoardService {
     @Override
     public void updatePreviews(DocumentModel docModel, double timecodeInSecond) {
         VideoDocument videoDocument = docModel.getAdapter(VideoDocument.class);
-        double roundedTimecode = Precision.round(timecodeInSecond / 1000.0f, 3);
+        double roundedTimecode = Precision.round(timecodeInSecond, 3);
         try {
             List<Map<String, Object>> views = new ArrayList<>();
             Map<String, Object> thumbnailView = new LinkedHashMap<>();
