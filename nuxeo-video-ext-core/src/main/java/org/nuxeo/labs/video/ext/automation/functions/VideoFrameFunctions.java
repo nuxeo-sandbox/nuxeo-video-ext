@@ -31,17 +31,17 @@ import java.util.HashMap;
 
 public class VideoFrameFunctions implements ContextHelper {
 
-    public static final String IMAGE_MEAN_GRAY_CONVERTER = "imageMeanGrey";
+    public static final String IMAGE_ENTROPY_CONVERTER = "imageEntropy";
 
     public VideoFrameFunctions() {}
 
     public boolean isBlackFrame(Blob blob) throws IOException {
-        return this.isBlackFrame(blob, 10);
+        return this.isBlackFrame(blob, 0.3);
     }
 
     public boolean isBlackFrame(Blob blob, double threshold) throws IOException {
         BlobHolder holder = Framework.getService(ConversionService.class)
-                .convert(IMAGE_MEAN_GRAY_CONVERTER, new SimpleBlobHolder(blob), new HashMap<>());
+                .convert(IMAGE_ENTROPY_CONVERTER, new SimpleBlobHolder(blob), new HashMap<>());
         Blob info = holder.getBlob();
         return info != null && (Double.parseDouble(info.getString()) < threshold);
     }

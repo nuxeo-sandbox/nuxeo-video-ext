@@ -18,11 +18,11 @@ import org.nuxeo.labs.video.ext.utils.VideoExtFeature;
 import org.nuxeo.runtime.test.runner.Features;
 import org.nuxeo.runtime.test.runner.FeaturesRunner;
 
-import static org.nuxeo.labs.video.ext.automation.functions.VideoFrameFunctions.IMAGE_MEAN_GRAY_CONVERTER;
+import static org.nuxeo.labs.video.ext.automation.functions.VideoFrameFunctions.IMAGE_ENTROPY_CONVERTER;
 
 @RunWith(FeaturesRunner.class)
 @Features(VideoExtFeature.class)
-public class TestImageMeanGrayInfoConverter {
+public class TestImageEntropyConverter {
 
     @Inject
     protected ConversionService conversionService;
@@ -32,15 +32,15 @@ public class TestImageMeanGrayInfoConverter {
 
     @Test
     public void testConverterIsAvailable() {
-        Assert.assertTrue(conversionService.getRegistredConverters().contains(IMAGE_MEAN_GRAY_CONVERTER));
-        Assert.assertTrue(conversionService.isConverterAvailable(IMAGE_MEAN_GRAY_CONVERTER).isAvailable());
+        Assert.assertTrue(conversionService.getRegistredConverters().contains(IMAGE_ENTROPY_CONVERTER));
+        Assert.assertTrue(conversionService.isConverterAvailable(IMAGE_ENTROPY_CONVERTER).isAvailable());
     }
 
     @Test
     public void testConverterWithBlackFrame() throws IOException {
         Blob blob = videoExtFeature.getBlackFrameBlob();
         Map<String, Serializable> parameters = new HashMap<>();
-        BlobHolder bh = conversionService.convert(IMAGE_MEAN_GRAY_CONVERTER, new SimpleBlobHolder(blob), parameters);
+        BlobHolder bh = conversionService.convert(IMAGE_ENTROPY_CONVERTER, new SimpleBlobHolder(blob), parameters);
         Assert.assertNotNull(bh);
         Blob info = bh.getBlob();
         Assert.assertNotNull(info);

@@ -14,9 +14,9 @@
             <installationDirective>You need to install ffmpeg from http://ffmpeg.org</installationDirective>
         </command>
 
-        <command name="imageMeanGrey" enabled="true">
+        <command name="imageEntropy" enabled="true">
             <commandLine>convert</commandLine>
-            <parameterString>-define registry:temporary-path=#{nuxeo.tmp.dir} -quiet  #{sourceFilePath}[0] -colorspace gray -format "%[mean]" info:#{targetFilePath}</parameterString>
+            <parameterString>-define registry:temporary-path=#{nuxeo.tmp.dir} -quiet  #{sourceFilePath}[0] -colorspace gray -format "%[entropy]" info:#{targetFilePath}</parameterString>
             <installationDirective>You need to install ImageMagick.</installationDirective>
         </command>
 
