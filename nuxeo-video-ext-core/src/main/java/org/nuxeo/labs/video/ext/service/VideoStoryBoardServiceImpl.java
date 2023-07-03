@@ -29,6 +29,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.math3.util.Precision;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -40,6 +41,7 @@ import org.nuxeo.ecm.core.api.blobholder.SimpleBlobHolder;
 import org.nuxeo.ecm.core.convert.api.ConversionException;
 import org.nuxeo.ecm.core.convert.api.ConversionService;
 import org.nuxeo.ecm.core.work.api.WorkManager;
+import org.nuxeo.ecm.platform.mimetype.interfaces.MimetypeRegistry;
 import org.nuxeo.ecm.platform.picture.api.adapters.AbstractPictureAdapter;
 import org.nuxeo.ecm.platform.video.VideoDocument;
 import org.nuxeo.ecm.platform.video.VideoHelper;
@@ -144,11 +146,21 @@ public class VideoStoryBoardServiceImpl implements VideoStoryBoardService {
     }
 
     public Blob screenshot(Blob video, double timecode) {
+        String name = FilenameUtils.getBaseName(video.getFilename());
+
         Map<String, Serializable> parameters = new HashMap<>();
         parameters.put(POSITION_PARAMETER, String.format("%.3f", timecode));
+
         BlobHolder result = Framework.getService(ConversionService.class)
                 .convert(SCREENSHOT_CONVERTER_NAME, new SimpleBlobHolder(video),
                         parameters);
+
+        Blob blob = result.getBlob();
+
+        MimetypeRegistry registry = Framework.getService(MimetypeRegistry.class);
+        String ext = registry.getExtensionsFromMimetypeName(blob.getMimeType()).get(0);
+        blob.setFilename(String.format("%s_frame_%.3f.%s",name,timecode,ext));
+
         return result.getBlob();
     }
 
