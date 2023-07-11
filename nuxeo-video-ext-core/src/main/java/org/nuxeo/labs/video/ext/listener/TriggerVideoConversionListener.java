@@ -19,15 +19,30 @@
 
 package org.nuxeo.labs.video.ext.listener;
 
+import static org.nuxeo.ecm.core.api.security.SecurityConstants.SYSTEM_USERNAME;
+import static org.nuxeo.ecm.platform.video.computation.RecomputeTranscodedVideosComputation.PARAM_CONVERSION_NAMES;
+import static org.nuxeo.ecm.platform.video.computation.RecomputeTranscodedVideosComputation.PARAM_XPATH;
+import static org.nuxeo.ecm.platform.video.computation.RecomputeVideoInfoComputation.RECOMPUTE_ALL_VIDEO_INFO;
+
+import java.io.Serializable;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.nuxeo.ecm.core.api.DocumentModel;
+import org.nuxeo.ecm.core.bulk.BulkService;
+import org.nuxeo.ecm.core.bulk.message.BulkCommand;
 import org.nuxeo.ecm.core.event.Event;
 import org.nuxeo.ecm.core.event.EventContext;
 import org.nuxeo.ecm.core.event.EventListener;
 import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
-import org.nuxeo.ecm.platform.video.service.VideoService;
+import org.nuxeo.ecm.platform.video.action.RecomputeVideoConversionsAction;
+import org.nuxeo.ecm.platform.video.service.AutomaticVideoConversion;
+import org.nuxeo.ecm.platform.video.service.AutomaticVideoConversionGetter;
 import org.nuxeo.runtime.api.Framework;
 
 public class TriggerVideoConversionListener implements EventListener {
+
+    public static final String VIDEOS_QUERY = "SELECT * FROM Document WHERE ecm:uuid = '%s'";
 
     @Override
     public void handleEvent(Event event) {
@@ -39,9 +54,22 @@ public class TriggerVideoConversionListener implements EventListener {
         DocumentEventContext docCtx = (DocumentEventContext) ctx;
         DocumentModel doc = docCtx.getSourceDocument();
 
-        // schedule conversion work
-        VideoService videoService = Framework.getService(VideoService.class);
-        videoService.launchAutomaticConversions(doc, true);
+        List<String> conversions = AutomaticVideoConversionGetter.getAutomaticVideoConversions()
+                                                                 .stream()
+                                                                 .map(AutomaticVideoConversion::getName)
+                                                                 .collect(Collectors.toList());
+
+        if (!conversions.isEmpty()) {
+            BulkService bulkService = Framework.getService(BulkService.class);
+            bulkService.submit(new BulkCommand.Builder(RecomputeVideoConversionsAction.ACTION_NAME,
+                    String.format(VIDEOS_QUERY, doc.getId()), SYSTEM_USERNAME)
+                    .repository(ctx.getCoreSession().getRepositoryName())
+                    .param(PARAM_XPATH, "file:content")
+                    .param(RECOMPUTE_ALL_VIDEO_INFO, false)
+                    .param(PARAM_CONVERSION_NAMES, (Serializable) conversions)
+                    .build());
+        }
+
     }
 
 }
