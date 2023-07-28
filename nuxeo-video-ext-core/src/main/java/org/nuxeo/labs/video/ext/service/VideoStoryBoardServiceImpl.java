@@ -61,7 +61,7 @@ public class VideoStoryBoardServiceImpl implements VideoStoryBoardService {
     }
 
     public void updateStoryboard(DocumentModel docModel, double[] timecodeInSeconds) {
-        VideoDocument videoDocument = docModel.getAdapter(VideoDocument.class);
+        VideoDocument videoDocument = docModel.getAdapter(VideoDocument.class, true);
         if (timecodeInSeconds.length < 1) {
             VideoHelper.updateStoryboard(docModel, videoDocument.getVideo().getBlob());
         } else {
@@ -76,7 +76,7 @@ public class VideoStoryBoardServiceImpl implements VideoStoryBoardService {
 
     @Override
     public void updatePreviews(DocumentModel docModel) {
-        VideoDocument videoDocument = docModel.getAdapter(VideoDocument.class);
+        VideoDocument videoDocument = docModel.getAdapter(VideoDocument.class, true);
         try {
             VideoHelper.updatePreviews(docModel, videoDocument.getVideo().getBlob());
         } catch (IOException e) {
@@ -86,7 +86,7 @@ public class VideoStoryBoardServiceImpl implements VideoStoryBoardService {
 
     @Override
     public void updatePreviews(DocumentModel docModel, double timecodeInSecond) {
-        VideoDocument videoDocument = docModel.getAdapter(VideoDocument.class);
+        VideoDocument videoDocument = docModel.getAdapter(VideoDocument.class, true);
         double roundedTimecode = Precision.round(timecodeInSecond, 3);
         try {
             List<Map<String, Object>> views = new ArrayList<>();
@@ -128,7 +128,7 @@ public class VideoStoryBoardServiceImpl implements VideoStoryBoardService {
      */
     public void computeStoryBoard(DocumentModel docModel, double[] timecodesInSeconds) {
         StoryboardAdapter storyboard = docModel.getAdapter(StoryboardAdapter.class);
-        VideoDocument videoDocument = docModel.getAdapter(VideoDocument.class);
+        VideoDocument videoDocument = docModel.getAdapter(VideoDocument.class, true);
         Blob video = videoDocument.getVideo().getBlob();
         for (double timecode : timecodesInSeconds) {
             try {

@@ -68,7 +68,7 @@ public class ExtendedVideoInfoWork extends VideoInfoWork {
 
     @Override
     protected void updateVideoInfo(DocumentModel doc) {
-        VideoDocument videoDocument = doc.getAdapter(VideoDocument.class);
+        VideoDocument videoDocument = doc.getAdapter(VideoDocument.class, true);
         if (videoDocument.getVideo().getWidth() != 0 && videoDocument.getVideo().getHeight() != 0) {
             // assume the video info is already computed
             return;

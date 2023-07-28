@@ -20,12 +20,11 @@
 package org.nuxeo.labs.video.ext.automation.adapter;
 
 import org.nuxeo.ecm.automation.OperationContext;
-import org.nuxeo.ecm.automation.TypeAdaptException;
 import org.nuxeo.ecm.automation.TypeAdapter;
 
 public class IntegerToDoubleAdpater implements TypeAdapter {
     @Override
-    public Object getAdaptedValue(OperationContext operationContext, Object o) throws TypeAdaptException {
+    public Object getAdaptedValue(OperationContext operationContext, Object o) {
         Integer value = (Integer) o;
         return Double.valueOf(value);
     }

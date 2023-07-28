@@ -47,7 +47,7 @@ public class ExtendedVideoChangedListener extends VideoChangedListener {
 
     @Override
     protected void scheduleAsyncProcessing(DocumentModel doc) {
-        VideoDocument videoDocument = doc.getAdapter(VideoDocument.class);
+        VideoDocument videoDocument = doc.getAdapter(VideoDocument.class, true);
         if (videoDocument.getVideo().getBlob() != null) {
             VideoInfoService videoInfoService = Framework.getService(VideoInfoService.class);
             videoInfoService.scheduleVideoInfoWork(doc);

@@ -45,7 +45,7 @@ public class VideoScreenShotOp {
     @Context
     protected VideoStoryBoardService storyboardService;
 
-    @Param(name = "timecodeInSecond", description = "Timecode in second", required = true)
+    @Param(name = "timecodeInSecond", description = "Timecode in second")
     protected Double timecodeInSecond;
 
     @OperationMethod

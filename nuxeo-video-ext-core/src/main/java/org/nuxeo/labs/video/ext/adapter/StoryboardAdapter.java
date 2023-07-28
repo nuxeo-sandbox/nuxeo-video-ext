@@ -42,8 +42,11 @@ public class StoryboardAdapter implements Storyboard {
 
     public StoryboardAdapter(DocumentModel doc) {
         this.doc = doc;
+
+        @SuppressWarnings("unchecked")
         List<Map<String, Serializable>> property = (List<Map<String, Serializable>>) doc.getPropertyValue(
                 VideoConstants.STORYBOARD_PROPERTY);
+
         if (property != null) {
             for (Map<String, Serializable> item : property) {
                 Frame frame = new Frame();

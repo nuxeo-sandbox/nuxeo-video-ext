@@ -40,7 +40,7 @@ public class VideoInfoServiceImpl extends DefaultComponent implements VideoInfoS
 
     @Override
     public void updateVideoInfo(DocumentModel docModel) {
-        VideoDocument videoDocument = docModel.getAdapter(VideoDocument.class);
+        VideoDocument videoDocument = docModel.getAdapter(VideoDocument.class, true);
         VideoHelper.updateVideoInfo(docModel, videoDocument.getVideo().getBlob());
     }
 

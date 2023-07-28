@@ -67,7 +67,7 @@ public class TestVideoInfoService {
             assertEquals(1, listener.getCapturedEventCount(VIDEO_INFO_DONE_EVENT));
 
             doc = session.getDocument(doc.getRef());
-            VideoDocument videoDocument = doc.getAdapter(VideoDocument.class);
+            VideoDocument videoDocument = doc.getAdapter(VideoDocument.class, true);
             VideoInfo videoInfo = videoDocument.getVideo().getVideoInfo();
             Assert.assertNotNull(videoInfo);
             Assert.assertEquals(121.65, videoInfo.getDuration(), 0.1d);

@@ -57,7 +57,7 @@ public class VideoStoryboardOp {
 
     @OperationMethod
     public DocumentModel run(DocumentModel doc) {
-        VideoDocument videoDoc = doc.getAdapter(VideoDocument.class);
+        VideoDocument videoDoc = doc.getAdapter(VideoDocument.class, true);
         if (videoDoc == null)
             return doc;
 
