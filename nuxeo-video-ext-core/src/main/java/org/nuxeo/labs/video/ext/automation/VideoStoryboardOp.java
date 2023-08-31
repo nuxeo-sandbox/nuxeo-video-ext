@@ -68,8 +68,6 @@ public class VideoStoryboardOp {
             storyboardService.updateStoryboard(doc);
         }
 
-        storyboardService.updatePreviews(doc);
-
         if (save) {
             doc = ctx.getCoreSession().saveDocument(doc);
         }
@@ -77,3 +75,4 @@ public class VideoStoryboardOp {
     }
 
 }
+

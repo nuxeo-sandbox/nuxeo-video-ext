@@ -74,7 +74,7 @@ public class TestVideoPreviewOp {
         params.put("timecodeInSecond", 2.0d);
         ctx.setInput(doc);
 
-        doc = (DocumentModel) automationService.run(ctx, VideoStoryboardOp.ID, params);
+        doc = (DocumentModel) automationService.run(ctx, VideoPreviewOp.ID, params);
 
         MultiviewPictureAdapter adapter = new MultiviewPictureAdapter(doc);
         Assert.assertEquals(2, adapter.getViews().length);
@@ -89,7 +89,7 @@ public class TestVideoPreviewOp {
         params.put("timecodeInSecond", 2);
         ctx.setInput(doc);
 
-        doc = (DocumentModel) automationService.run(ctx, VideoStoryboardOp.ID, params);
+        doc = (DocumentModel) automationService.run(ctx, VideoPreviewOp.ID, params);
 
         MultiviewPictureAdapter adapter = new MultiviewPictureAdapter(doc);
         Assert.assertEquals(2, adapter.getViews().length);
