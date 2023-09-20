@@ -22,6 +22,7 @@ package org.nuxeo.ecm.platform.video.service;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.nuxeo.runtime.api.Framework;
@@ -42,6 +43,16 @@ public class AutomaticVideoConversionGetter {
         } else {
             return Collections.emptyList();
         }
+    }
+
+    public static List<String> filerUpscalingConversion(long maxHeight, List<String> conversions) {
+        VideoService videoService = Framework.getService(VideoService.class);
+        return videoService.getAvailableVideoConversions()
+                           .stream()
+                           .filter(conversion -> conversion.getHeight() <= maxHeight)
+                           .map(VideoConversion::getName)
+                           .filter(conversions::contains)
+                           .toList();
     }
 
 }

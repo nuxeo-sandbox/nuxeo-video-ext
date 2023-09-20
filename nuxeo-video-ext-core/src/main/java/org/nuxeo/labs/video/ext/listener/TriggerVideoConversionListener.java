@@ -35,6 +35,8 @@ import org.nuxeo.ecm.core.event.Event;
 import org.nuxeo.ecm.core.event.EventContext;
 import org.nuxeo.ecm.core.event.EventListener;
 import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
+import org.nuxeo.ecm.platform.video.VideoDocument;
+import org.nuxeo.ecm.platform.video.VideoInfo;
 import org.nuxeo.ecm.platform.video.action.RecomputeVideoConversionsAction;
 import org.nuxeo.ecm.platform.video.service.AutomaticVideoConversion;
 import org.nuxeo.ecm.platform.video.service.AutomaticVideoConversionGetter;
@@ -53,10 +55,18 @@ public class TriggerVideoConversionListener implements EventListener {
 
         DocumentModel doc = docCtx.getSourceDocument();
 
+
         List<String> conversions = AutomaticVideoConversionGetter.getAutomaticVideoConversions()
                                                                  .stream()
                                                                  .map(AutomaticVideoConversion::getName)
                                                                  .collect(Collectors.toList());
+
+        if ("false".equals(Framework.getProperty("nuxeo.video.conversion.allow.upscaling","true"))) {
+            VideoDocument video = doc.getAdapter(VideoDocument.class,true);
+            VideoInfo videoInfo = video.getVideo().getVideoInfo();
+            long shortDimension = Math.min(videoInfo.getWidth(), videoInfo.getHeight());
+            conversions = AutomaticVideoConversionGetter.filerUpscalingConversion(shortDimension,conversions);
+        }
 
         if (!conversions.isEmpty()) {
             BulkService bulkService = Framework.getService(BulkService.class);
@@ -68,7 +78,7 @@ public class TriggerVideoConversionListener implements EventListener {
                     .param(PARAM_CONVERSION_NAMES, (Serializable) conversions)
                     .build());
         }
-
     }
+
 
 }

@@ -17,11 +17,12 @@ Several configuration settings are available.
 
 ## nuxeo.conf
 
-| Property name                  | description                                                                     |
-|--------------------------------|:--------------------------------------------------------------------------------|
-| nuxeo.video.default.info       | A boolean property to enable/disable the default video metadata mapping         |
-| nuxeo.video.default.conversion | A boolean property to enable/disable the default video conversions              |
-| nuxeo.video.default.storyboard | A boolean property to enable/disable the default video storyboard and thumbnail |
+| Property name                          | description                                                                              |
+|----------------------------------------|:-----------------------------------------------------------------------------------------|
+| nuxeo.video.default.info               | A boolean property to enable/disable the default video metadata mapping                  |
+| nuxeo.video.default.conversion         | A boolean property to enable/disable the default video conversions                       |
+| nuxeo.video.default.storyboard         | A boolean property to enable/disable the default video storyboard and thumbnail          |
+| nuxeo.video.conversion.allow.upscaling | A boolean property to enable/disable default conversions that upscale the original video |
 
 # Plugin Features
 
@@ -83,61 +84,64 @@ Parameters:
 | timecodeInSecond | The time code of the frame to extract and use as the playback preview and thumbnail | double  | false    |               |
 | save             | Save the document                                                                   | boolean | false    | false         |
 
-
 # Custom configuration samples
+
 ## Custom storyboard configuration with Nuxeo Studio
 
-When using Nuxeo AI and the AWS Rekognition video segment feature, you can leverage the results to generate a more compelling storyboard than by using the default fixed time configuration.
+When using Nuxeo AI and the AWS Rekognition video segment feature, you can leverage the results to generate a more
+compelling storyboard than by using the default fixed time configuration.
 To do that you need to first:
+
 - set `nuxeo.video.default.storyboard=false` in nuxeo.conf to disable the default storyboard
-- create an event handler in Nuxeo Studio to listen to the `ENRICHMENT_MODIFIED` event and configure the following automation script
+- create an event handler in Nuxeo Studio to listen to the `ENRICHMENT_MODIFIED` event and configure the following
+  automation script
 
 ```js
 function run(input, params) {
 
-  var enrichmentName = ctx.Event.getContext().getProperties().comment;
+    var enrichmentName = ctx.Event.getContext().getProperties().comment;
 
-  if (enrichmentName === 'aws.videoSegmentDetection') {
+    if (enrichmentName === 'aws.videoSegmentDetection') {
 
-    var enrichmentItems =  toJsArray(input['enrichment:items']);
+        var enrichmentItems = toJsArray(input['enrichment:items']);
 
-    var segments;
-    
-    enrichmentItems.forEach(function(item) {
-      if (item.model === 'aws.videoSegmentDetection') {
-        segments = item;
-      }
-    });
-       
-    var timecodeInSeconds = toJsArray(segments.suggestions[0].labels).filter(function(segment) {
-      return segment.label === 'SHOT';                 
-    }).map(function(segment) {
-      return segment.timestamp / 1000;
-    });    
-    
-    input = Video.Storyboard(input, {
-      'save': false,
-      'timecodeListInSeconds': timecodeInSeconds
-    });
-    
-    var previewTimecode = timecodeInSeconds.length > 0 ?  timecodeInSeconds[0] : 0;
-       
-    input = Video.Preview(input, {
-      'save': true,
-      'timecodeInSecond': previewTimecode
-    });
- 
-  }
-  
-  return input;
+        var segments;
+
+        enrichmentItems.forEach(function (item) {
+            if (item.model === 'aws.videoSegmentDetection') {
+                segments = item;
+            }
+        });
+
+        var timecodeInSeconds = toJsArray(segments.suggestions[0].labels).filter(function (segment) {
+            return segment.label === 'SHOT';
+        }).map(function (segment) {
+            return segment.timestamp / 1000;
+        });
+
+        input = Video.Storyboard(input, {
+            'save': false,
+            'timecodeListInSeconds': timecodeInSeconds
+        });
+
+        var previewTimecode = timecodeInSeconds.length > 0 ? timecodeInSeconds[0] : 0;
+
+        input = Video.Preview(input, {
+            'save': true,
+            'timecodeInSecond': previewTimecode
+        });
+
+    }
+
+    return input;
 }
 
 function toJsArray(javaArray) {
-  var jsArray = [];
-  for(var i=0; i < javaArray.length; i++) {
-    jsArray.push(javaArray[i]);
-  }
-  return jsArray;
+    var jsArray = [];
+    for (var i = 0; i < javaArray.length; i++) {
+        jsArray.push(javaArray[i]);
+    }
+    return jsArray;
 }
 ```
 
