@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 <component name="org.nuxeo.labs.video.ext.converters">
 
+    <require>org.nuxeo.ecm.platform.video.convert.converters</require>
+
     <extension target="org.nuxeo.ecm.core.convert.service.ConversionServiceImpl"
                point="converter">
         <converter name="video-screenshot" class="org.nuxeo.ecm.platform.convert.plugins.CommandLineConverter">
@@ -18,6 +20,58 @@
             <sourceMimeType>image/jpeg</sourceMimeType>
             <parameters>
                 <parameter name="CommandLineName">imageEntropy</parameter>
+            </parameters>
+        </converter>
+
+        <converter name="convertToWebM" class="org.nuxeo.labs.video.ext.converter.ExtendedVideoConverter">
+            <sourceMimeType>video/*</sourceMimeType>
+            <sourceMimeType>application/gxf</sourceMimeType>
+            <sourceMimeType>application/mxf</sourceMimeType>
+            <destinationMimeType>video/webm</destinationMimeType>
+            <parameters>
+                <parameter name="CommandLineName">ffmpeg-towebm</parameter>
+                <parameter name="videoMimeType">video/webm</parameter>
+                <parameter name="videoExtension">webm</parameter>
+                <parameter name="tmpDirectoryPrefix">convertToWebM</parameter>
+            </parameters>
+        </converter>
+
+        <converter name="convertToMP4" class="org.nuxeo.labs.video.ext.converter.ExtendedVideoConverter">
+            <sourceMimeType>video/*</sourceMimeType>
+            <sourceMimeType>application/gxf</sourceMimeType>
+            <sourceMimeType>application/mxf</sourceMimeType>
+            <destinationMimeType>video/mp4</destinationMimeType>
+            <parameters>
+                <parameter name="CommandLineName">ffmpeg-tomp4</parameter>
+                <parameter name="videoMimeType">video/mp4</parameter>
+                <parameter name="videoExtension">mp4</parameter>
+                <parameter name="tmpDirectoryPrefix">convertToMP4</parameter>
+            </parameters>
+        </converter>
+
+        <converter name="convertToOgg" class="org.nuxeo.labs.video.ext.converter.ExtendedVideoConverter">
+            <sourceMimeType>video/*</sourceMimeType>
+            <sourceMimeType>application/gxf</sourceMimeType>
+            <sourceMimeType>application/mxf</sourceMimeType>
+            <destinationMimeType>video/ogg</destinationMimeType>
+            <parameters>
+                <parameter name="CommandLineName">ffmpeg-toogg</parameter>
+                <parameter name="videoMimeType">video/ogg</parameter>
+                <parameter name="videoExtension">ogg</parameter>
+                <parameter name="tmpDirectoryPrefix">convertToOgg</parameter>
+            </parameters>
+        </converter>
+
+        <converter name="convertToAVI" class="org.nuxeo.labs.video.ext.converter.ExtendedVideoConverter">
+            <sourceMimeType>video/*</sourceMimeType>
+            <sourceMimeType>application/gxf</sourceMimeType>
+            <sourceMimeType>application/mxf</sourceMimeType>
+            <destinationMimeType>video/x-msvideo</destinationMimeType>
+            <parameters>
+                <parameter name="CommandLineName">ffmpeg-toavi</parameter>
+                <parameter name="videoMimeType">video/x-msvideo</parameter>
+                <parameter name="videoExtension">avi</parameter>
+                <parameter name="tmpDirectoryPrefix">convertToAVI</parameter>
             </parameters>
         </converter>
 
