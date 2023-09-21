@@ -37,6 +37,7 @@ import org.nuxeo.ecm.core.api.Blob;
 import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.api.impl.blob.FileBlob;
+import org.nuxeo.ecm.platform.video.VideoInfo;
 import org.nuxeo.runtime.test.runner.Deploy;
 import org.nuxeo.runtime.test.runner.Features;
 import org.nuxeo.runtime.test.runner.RunnerFeature;
@@ -64,11 +65,7 @@ public class VideoExtFeature implements RunnerFeature {
         return session.createDocument(doc);
     }
 
-    public DocumentModel getVideoDocument(CoreSession session) {
-        DocumentModel doc = session.createDocumentModel("/", "Video", "Video");
-
-        doc.setPropertyValue("file:content", (Serializable) getVideoBlob());
-
+    public VideoInfo getVideoInfo() {
         Map<String, Serializable> videoInfo = new HashMap<>();
         videoInfo.put(DURATION, 120.0d);
         videoInfo.put(WIDTH, 640L);
@@ -76,9 +73,13 @@ public class VideoExtFeature implements RunnerFeature {
         videoInfo.put(FRAME_RATE, 25.0d);
         videoInfo.put(FORMAT, "mp4");
         videoInfo.put(STREAMS, new ArrayList<>());
+        return VideoInfo.fromMap(videoInfo);
+    }
 
-        doc.setPropertyValue("vid:info", (Serializable) videoInfo);
-
+    public DocumentModel getVideoDocument(CoreSession session) {
+        DocumentModel doc = session.createDocumentModel("/", "Video", "Video");
+        doc.setPropertyValue("file:content", (Serializable) getVideoBlob());
+        doc.setPropertyValue("vid:info", (Serializable) getVideoInfo().toMap());
         return session.createDocument(doc);
     }
 

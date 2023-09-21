@@ -28,12 +28,14 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.nuxeo.ecm.core.api.CoreSession;
 import org.nuxeo.ecm.core.api.DocumentModel;
 import org.nuxeo.ecm.core.bulk.BulkService;
 import org.nuxeo.ecm.core.bulk.message.BulkCommand;
 import org.nuxeo.ecm.core.event.Event;
 import org.nuxeo.ecm.core.event.EventContext;
 import org.nuxeo.ecm.core.event.EventListener;
+import org.nuxeo.ecm.core.event.EventService;
 import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
 import org.nuxeo.ecm.platform.video.VideoDocument;
 import org.nuxeo.ecm.platform.video.VideoInfo;
@@ -45,6 +47,8 @@ import org.nuxeo.runtime.api.Framework;
 public class TriggerVideoConversionListener implements EventListener {
 
     public static final String VIDEOS_QUERY = "SELECT * FROM Document WHERE ecm:uuid = '%s'";
+
+    public static final String NO_DOWNSCALING_VIDEO_CONVERSION_AVAILABLE = "noDownscalingVideoConversionAvailable";
 
     @Override
     public void handleEvent(Event event) {
@@ -61,11 +65,23 @@ public class TriggerVideoConversionListener implements EventListener {
                                                                  .map(AutomaticVideoConversion::getName)
                                                                  .collect(Collectors.toList());
 
+        if (conversions.isEmpty()) {
+            return;
+        }
+
         if ("false".equals(Framework.getProperty("nuxeo.video.conversion.allow.upscaling","true"))) {
             VideoDocument video = doc.getAdapter(VideoDocument.class,true);
             VideoInfo videoInfo = video.getVideo().getVideoInfo();
             long shortDimension = Math.min(videoInfo.getWidth(), videoInfo.getHeight());
             conversions = AutomaticVideoConversionGetter.filerUpscalingConversion(shortDimension,conversions);
+
+            //Send an event to let application builder configure a fallback behavior
+            if (conversions.isEmpty()) {
+                CoreSession session = doc.getCoreSession();
+                DocumentEventContext dec = new DocumentEventContext(session, session.getPrincipal(), doc);
+                Event e = dec.newEvent(NO_DOWNSCALING_VIDEO_CONVERSION_AVAILABLE);
+                Framework.getService(EventService.class).fireEvent(e);
+            }
         }
 
         if (!conversions.isEmpty()) {
