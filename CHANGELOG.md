@@ -1,6 +1,9 @@
 # Changelog
 
-## 2023.3.0-SNAPSHOT
+## 2023.3.0
+- Add an operation to store a video conversion on a document
+
+## 2023.2.0
 - Add fallback event if no automatic conversion without upscaling is available
 - Add nuxeo.conf parameter to prevent video upscaling
 - Use the conversion height parameter as width for portrait video conversions
