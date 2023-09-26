@@ -5,6 +5,7 @@
         <operation class="org.nuxeo.labs.video.ext.automation.VideoStoryboardOp"/>
         <operation class="org.nuxeo.labs.video.ext.automation.VideoPreviewOp"/>
         <operation class="org.nuxeo.labs.video.ext.automation.VideoScreenShotOp"/>
+        <operation class="org.nuxeo.labs.video.ext.automation.VideoAddConversion"/>
     </extension>
 
     <extension target="org.nuxeo.ecm.core.operation.OperationServiceComponent" point="adapters">
