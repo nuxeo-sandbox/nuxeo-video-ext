@@ -5,7 +5,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.nuxeo.ecm.platform.video.VideoHelper.DEFAULT_NUMBER_OF_THUMBNAILS;
 import static org.nuxeo.labs.video.ext.work.ExtendedVideoStoryboardWork.VIDEO_STORYBOARD_DONE_EVENT;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import org.junit.Assert;
 import org.junit.Test;
