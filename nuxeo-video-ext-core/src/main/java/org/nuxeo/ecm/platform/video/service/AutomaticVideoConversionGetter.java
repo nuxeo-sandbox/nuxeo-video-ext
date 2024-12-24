@@ -29,12 +29,10 @@ public class AutomaticVideoConversionGetter {
 
     public static Collection<VideoConversion> getAutomaticVideoConversions() {
         VideoService videoService = Framework.getService(VideoService.class);
-
         if (videoService instanceof VideoServiceImpl) {
-            VideoServiceImpl videoServiceImpl = (VideoServiceImpl) videoService;
             return List.of(
-                    videoServiceImpl.getVideoConversion("WEBM 480p"),
-                    videoServiceImpl.getVideoConversion("MP4 480p")
+                    videoService.getVideoConversion("WebM 480p"),
+                    videoService.getVideoConversion("MP4 480p")
             );
         } else {
             return Collections.emptyList();
