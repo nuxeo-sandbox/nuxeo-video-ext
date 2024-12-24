@@ -25,8 +25,8 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.nuxeo.ecm.platform.video.service.AutomaticVideoConversion;
 import org.nuxeo.ecm.platform.video.service.AutomaticVideoConversionGetter;
+import org.nuxeo.ecm.platform.video.service.VideoConversion;
 import org.nuxeo.labs.video.ext.utils.VideoExtFeature;
 import org.nuxeo.runtime.test.runner.Features;
 import org.nuxeo.runtime.test.runner.FeaturesRunner;
@@ -37,20 +37,20 @@ public class TestAutomaticVideoConversionGetter {
 
     @Test
     public void testGetAutomaticVideoConversions() {
-        Collection<AutomaticVideoConversion> conversions = AutomaticVideoConversionGetter.getAutomaticVideoConversions();
+        Collection<VideoConversion> conversions = AutomaticVideoConversionGetter.getAutomaticVideoConversions();
         Assert.assertEquals(2, conversions.size());
     }
 
     @Test
     public void testFilterUpscaling() {
-        List<String> conversions = AutomaticVideoConversionGetter.getAutomaticVideoConversions().stream().map(AutomaticVideoConversion::getName).toList();
+        List<String> conversions = AutomaticVideoConversionGetter.getAutomaticVideoConversions().stream().map(VideoConversion::getName).toList();
         conversions = AutomaticVideoConversionGetter.filerUpscalingConversion(100L,conversions);
         Assert.assertEquals(0, conversions.size());
     }
 
     @Test
     public void testNoUpscaling() {
-        List<String> conversions = AutomaticVideoConversionGetter.getAutomaticVideoConversions().stream().map(AutomaticVideoConversion::getName).toList();
+        List<String> conversions = AutomaticVideoConversionGetter.getAutomaticVideoConversions().stream().map(VideoConversion::getName).toList();
         conversions = AutomaticVideoConversionGetter.filerUpscalingConversion(1080L,conversions);
         Assert.assertEquals(2, conversions.size());
     }

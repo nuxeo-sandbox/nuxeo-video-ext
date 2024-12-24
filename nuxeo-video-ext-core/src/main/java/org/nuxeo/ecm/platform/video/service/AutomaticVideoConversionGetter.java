@@ -21,25 +21,21 @@ package org.nuxeo.ecm.platform.video.service;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.nuxeo.runtime.api.Framework;
 
 public class AutomaticVideoConversionGetter {
 
-    public static Collection<AutomaticVideoConversion> getAutomaticVideoConversions() {
+    public static Collection<VideoConversion> getAutomaticVideoConversions() {
         VideoService videoService = Framework.getService(VideoService.class);
 
         if (videoService instanceof VideoServiceImpl) {
-            AutomaticVideoConversionContributionHandler automaticVideoConversions = ((VideoServiceImpl) videoService).automaticVideoConversions;
-            return automaticVideoConversions.registry.values()
-                                                     .stream()
-                                                     .filter(AutomaticVideoConversion::isEnabled)
-                                                     .sorted(Comparator.comparingInt(
-                                                             AutomaticVideoConversion::getOrder))
-                                                     .collect(Collectors.toList());
+            VideoServiceImpl videoServiceImpl = (VideoServiceImpl) videoService;
+            return List.of(
+                    videoServiceImpl.getVideoConversion("WEBM 480p"),
+                    videoServiceImpl.getVideoConversion("MP4 480p")
+            );
         } else {
             return Collections.emptyList();
         }

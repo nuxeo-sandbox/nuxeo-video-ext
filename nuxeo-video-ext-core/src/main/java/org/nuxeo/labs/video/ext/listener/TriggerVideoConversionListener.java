@@ -42,6 +42,7 @@ import org.nuxeo.ecm.platform.video.VideoInfo;
 import org.nuxeo.ecm.platform.video.action.RecomputeVideoConversionsAction;
 import org.nuxeo.ecm.platform.video.service.AutomaticVideoConversion;
 import org.nuxeo.ecm.platform.video.service.AutomaticVideoConversionGetter;
+import org.nuxeo.ecm.platform.video.service.VideoConversion;
 import org.nuxeo.runtime.api.Framework;
 
 public class TriggerVideoConversionListener implements EventListener {
@@ -62,7 +63,7 @@ public class TriggerVideoConversionListener implements EventListener {
 
         List<String> conversions = AutomaticVideoConversionGetter.getAutomaticVideoConversions()
                                                                  .stream()
-                                                                 .map(AutomaticVideoConversion::getName)
+                                                                 .map(VideoConversion::getName)
                                                                  .collect(Collectors.toList());
 
         if (conversions.isEmpty()) {
