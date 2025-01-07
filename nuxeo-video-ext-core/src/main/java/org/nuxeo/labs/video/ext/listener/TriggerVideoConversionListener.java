@@ -40,8 +40,7 @@ import org.nuxeo.ecm.core.event.impl.DocumentEventContext;
 import org.nuxeo.ecm.platform.video.VideoDocument;
 import org.nuxeo.ecm.platform.video.VideoInfo;
 import org.nuxeo.ecm.platform.video.action.RecomputeVideoConversionsAction;
-import org.nuxeo.ecm.platform.video.service.AutomaticVideoConversion;
-import org.nuxeo.ecm.platform.video.service.AutomaticVideoConversionGetter;
+import org.nuxeo.labs.video.ext.service.AutomaticVideoConversionGetter;
 import org.nuxeo.ecm.platform.video.service.VideoConversion;
 import org.nuxeo.runtime.api.Framework;
 

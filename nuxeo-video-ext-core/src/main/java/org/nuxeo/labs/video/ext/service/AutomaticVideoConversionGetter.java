@@ -17,26 +17,22 @@
  *     Michael Vachette
  */
 
-package org.nuxeo.ecm.platform.video.service;
+package org.nuxeo.labs.video.ext.service;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
+import org.nuxeo.ecm.platform.video.service.VideoConversion;
+import org.nuxeo.ecm.platform.video.service.VideoService;
 import org.nuxeo.runtime.api.Framework;
 
 public class AutomaticVideoConversionGetter {
 
     public static Collection<VideoConversion> getAutomaticVideoConversions() {
         VideoService videoService = Framework.getService(VideoService.class);
-        if (videoService instanceof VideoServiceImpl) {
-            return List.of(
-                    videoService.getVideoConversion("WebM 480p"),
-                    videoService.getVideoConversion("MP4 480p")
-            );
-        } else {
-            return Collections.emptyList();
-        }
+        return videoService.getAutomaticVideoConversionsNames()
+                .stream().map(conversion -> videoService.getVideoConversion(conversion))
+                .toList();
     }
 
     public static List<String> filerUpscalingConversion(long maxHeight, List<String> conversions) {

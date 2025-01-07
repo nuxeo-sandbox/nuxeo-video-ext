@@ -25,7 +25,7 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.nuxeo.ecm.platform.video.service.AutomaticVideoConversionGetter;
+import org.nuxeo.labs.video.ext.service.AutomaticVideoConversionGetter;
 import org.nuxeo.ecm.platform.video.service.VideoConversion;
 import org.nuxeo.labs.video.ext.utils.VideoExtFeature;
 import org.nuxeo.runtime.test.runner.Features;
